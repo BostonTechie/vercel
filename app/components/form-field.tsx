@@ -6,6 +6,7 @@ interface FormFieldProps {
     htmlFor: string,
     label: string,
     type?: string,
+    autoComplete?: string,
     value: any,
     onChange?: (...args: any) => any,
     error?: string
@@ -16,6 +17,7 @@ export function FormField({
     label,
     type = "text",
     value,
+    autoComplete = "email",
     onChange = () => { },
     error = ""
 
@@ -28,13 +30,19 @@ export function FormField({
 
 
     return <>
-        <label htmlfor={htmlFor}>
+        <label htmlFor={htmlFor} className="block text-sm font-medium text-gray-700">
             {label}
         </label>
         <input onChange={e => {
             onChange(e)
             setErrorText('')
-        }} type={type} id={htmlFor} name={htmlFor} value={value} />
+        }} type={type}
+            id={htmlFor}
+            name={htmlFor}
+            value={value}
+            autoComplete={autoComplete}
+            required
+            className="w-full rounded border border-gray-500 px-2 py-1 text-lg" />
         <div>
             {errorText || ''}
         </div>

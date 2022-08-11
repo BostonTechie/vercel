@@ -23,37 +23,38 @@ export default function Login() {
     return (
         <Layout>
 
-            {
-                JSON.stringify(formData)
-            }
-
             <div className="h-full flex justify-center items-center flex-col gap-y-4">
-                <form>
-                    <FormField
-                        htmlFor="email"
-                        label="Email"
-                        type="email"
-                        value={formData.email}
-                        onChange={e => handleInputChange(e, 'email')}
-                    />
 
-                    <FormField
-                        htmlFor="password"
-                        label="Password"
-                        type="password"
-                        value={formData.password}
-                        onChange={e => handleInputChange(e, 'password')}
-                    />
+                <div className="h-full flex justify-center items-center flex-col gap-y-4">
+                    <form>
+                        <FormField
+                            htmlFor="email"
+                            label="Email"
+                            type="email"
+                            value={formData.email}
+                            onChange={e => handleInputChange(e, 'email')}
 
-                    <button
-                        type="submit"
-                        className="w-full rounded bg-blue-500 py-2 px- text-white hover:bg-blue-700 focus:bg-blue-400"
-                    >
-                        Log in
-                    </button>
+                        />
 
-                </form>
+                        <FormField
+                            htmlFor="password"
+                            label="Password"
+                            type="password"
+                            autoComplete="current-password"
+                            value={formData.password}
+                            onChange={e => handleInputChange(e, 'password')}
+                        />
 
+                        <button
+                            type="submit"
+                            className="w-full rounded bg-blue-500 py-2 px- text-white hover:bg-blue-700 focus:bg-blue-400"
+                        >
+                            Log in
+                        </button>
+
+                    </form>
+
+                </div>
             </div>
         </Layout>
 
