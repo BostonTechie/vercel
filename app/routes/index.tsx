@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import type { getHiveItems } from "~/models/hive.server"
+
 
 
 import {
@@ -41,9 +41,6 @@ export default function Example() {
 
 
 
-  type LoaderData = {
-    hiveListItems: Awaited<ReturnType<typeof getHiveItems>>;
-  };
 
 
   return (
