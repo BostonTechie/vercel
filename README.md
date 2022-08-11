@@ -100,6 +100,9 @@ now run
  - npx prisma db push
  - prisma studio
 
+## Authentication
+ https://www.youtube.com/watch?v=vR33ZRJekHk
+ 
 ## Deployment
 
 After having run the `create-remix` command and selected "Vercel" as a deployment target, you only need to [import your Git repository](https://vercel.com/new) into Vercel, and it will be deployed.

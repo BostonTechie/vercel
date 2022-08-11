@@ -1,3 +1,5 @@
+import { Link } from "@remix-run/react";
+
 import remixSVG from "../svg/remix_log.svg"
 import splitImg from "../svg/splint_logo.jpg"
 import defiImg from "../svg/DeFi_Logo.png"
@@ -91,6 +93,16 @@ export default function loginIndex() {
                       >
                         Sign in
                       </button>
+                      <Link
+                        className="text-blue-500 underline"
+                        to={{
+                          pathname: "/hive",
+
+                        }}
+                      >
+                        Hive Data
+                      </Link>
+
                     </div>
                   </form>
 
@@ -216,7 +228,7 @@ export default function loginIndex() {
                   },
                   {
                     src: `${defiImg}`,
-                    alt: "Defi Accounting, LLc",
+                    alt: "Defi Accounting, LLC",
                     href: "https://www.andrewurquhart.com",
                   },
                 ].map((img) => (
