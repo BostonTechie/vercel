@@ -59,6 +59,8 @@ export default function Login() {
 
                             <button
                                 type="submit"
+                                name="_action"
+                                value={action}
                                 className="w-full rounded bg-blue-500 py-2 px- text-white hover:bg-blue-700 focus:bg-blue-400"
                             >
                                 Log in
@@ -66,6 +68,8 @@ export default function Login() {
                         ) : (
                             <button
                                 type="submit"
+                                name="_action"
+                                value={action}
                                 className="w-full rounded bg-blue-500 py-2 px- text-white hover:bg-blue-700 focus:bg-blue-400"
                             >
                                 Sign in
@@ -76,7 +80,8 @@ export default function Login() {
                 </div>
                 <button
                     onClick={() => setAction(action == 'login' ? 'sign-up' : 'login')}
-                    type="submit" className="rounded bg-blue-500 py-2 px- text-white hover:bg-blue-700 focus:bg-blue-400" >Already have an account?</button>
+                    type="submit" className="rounded bg-blue-500 py-2 px- text-white hover:bg-blue-700 focus:bg-blue-400" >Already have an account?
+                </button>
             </div>
         </Layout>
 

@@ -36,8 +36,5 @@ export default function Google() {
 
 
         </main>
-
     )
-
-
 }
