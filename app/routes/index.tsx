@@ -1,31 +1,11 @@
-import { Fragment } from 'react'
-import { Menu, Popover, Transition } from '@headlessui/react'
-import { SearchIcon } from '@heroicons/react/solid'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import remixSVG from "../svg/remix_log.svg"
+import splitImg from "../svg/splint_logo.jpg"
+import defiImg from "../svg/DeFi_Logo.png"
 
-const user = {
-  name: 'Chelsea Hagon',
-  email: 'chelsea.hagon@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Teams', href: '#', current: false },
-  { name: 'Directory', href: '#', current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+export default function loginIndex() {
 
-export default function Example() {
+
   return (
     <div className="min-h-screen bg-gray-100">
 
@@ -180,9 +160,9 @@ export default function Example() {
               <div className="mt-6 flex flex-wrap justify-center gap-8">
                 {[
                   {
-                    src: "https://user-images.githubusercontent.com/1500684/157764397-ccd8ea10-b8aa-4772-a99b-35de937319e1.svg",
-                    alt: "Fly.io",
-                    href: "https://fly.io",
+                    src: `${remixSVG}`,
+                    alt: "remix.run",
+                    href: "https://remix.run/",
                   },
                   {
                     src: "https://user-images.githubusercontent.com/1500684/158238105-e7279a0c-1640-40db-86b0-3d3a10aab824.svg",
@@ -200,9 +180,9 @@ export default function Example() {
                     href: "https://tailwindcss.com",
                   },
                   {
-                    src: "https://user-images.githubusercontent.com/1500684/157764454-48ac8c71-a2a9-4b5e-b19c-edef8b8953d6.svg",
-                    alt: "Cypress",
-                    href: "https://www.cypress.io",
+                    src: `${splitImg}`,
+                    alt: "Splinterlands",
+                    href: "www.splinterlands.com/",
                   },
                   {
                     src: "https://user-images.githubusercontent.com/1500684/157772386-75444196-0604-4340-af28-53b236faa182.svg",
@@ -233,6 +213,11 @@ export default function Example() {
                     src: "https://user-images.githubusercontent.com/1500684/157773063-20a0ed64-b9f8-4e0b-9d1e-0b65a3d4a6db.svg",
                     alt: "TypeScript",
                     href: "https://typescriptlang.org",
+                  },
+                  {
+                    src: `${defiImg}`,
+                    alt: "Defi Accounting, LLc",
+                    href: "https://www.andrewurquhart.com",
                   },
                 ].map((img) => (
                   <a
