@@ -814,14 +814,6 @@ video {
   width: 24rem;
 }
 
-.w-40 {
-  width: 10rem;
-}
-
-.w-60 {
-  width: 15rem;
-}
-
 .min-w-full {
   min-width: 100%;
 }
@@ -908,22 +900,6 @@ video {
 
 .gap-8 {
   gap: 2rem;
-}
-
-.gap-y-1 {
-  row-gap: 0.25rem;
-}
-
-.gap-y-8 {
-  row-gap: 2rem;
-}
-
-.gap-y-7 {
-  row-gap: 1.75rem;
-}
-
-.gap-y-4 {
-  row-gap: 1rem;
 }
 
 .space-y-1 > :not([hidden]) ~ :not([hidden]) {
