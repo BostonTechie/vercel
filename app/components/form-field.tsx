@@ -1,6 +1,9 @@
 // https://www.youtube.com/watch?v=vR33ZRJekHk  @ 12 min
-import { useState, useEffect } from "react"
 
+// this form field is the basic setup for the fields used for login and sign-up forms at the login.tsx route
+
+
+import { useState, useEffect } from "react"
 
 interface FormFieldProps {
     htmlFor: string,
@@ -33,10 +36,12 @@ export function FormField({
         <label htmlFor={htmlFor} className="block text-sm font-medium text-gray-700">
             {label}
         </label>
+
         <input onChange={e => {
             onChange(e)
             setErrorText('')
-        }} type={type}
+        }}
+            type={type}
             id={htmlFor}
             name={htmlFor}
             value={value}

@@ -53,17 +53,16 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Login() {
 
+    //@18:30 min
+    const [action, setAction] = useState('login')
 
-    const [action, setAction] = useState(
-        'login'
-    )
-
-
+    // @15min
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     })
 
+    //@16min
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
         setFormData(form => ({
             ...form,
@@ -73,7 +72,7 @@ export default function Login() {
 
     return (
         <Layout>
-            {/* if you want to see your on change event */}
+            {/* if you want to see your on change event @17:30*/}
 
             on change form data
             <br />
@@ -85,6 +84,8 @@ export default function Login() {
 
                 <div >
                     <form className="rounded-2xl bg-gray-300 p-6 w-60 gap-y-4" method="post">
+
+                        {/* @13.49 min */}
                         <FormField
                             htmlFor="email"
                             label="Email"
@@ -92,7 +93,7 @@ export default function Login() {
                             value={formData.email}
                             onChange={e => handleInputChange(e, 'email')}
                         />
-
+                        <br></br>
                         <FormField
                             htmlFor="password"
                             label="Password"
@@ -102,36 +103,39 @@ export default function Login() {
                             onChange={e => handleInputChange(e, 'password')}
                         />
                         <br></br>
-                        {action === 'login' ? (
+
+                        {/* @24:30 min */}
 
 
-                            <button
-                                type="submit"
-                                name="_action"
-                                value={action}
-                                className="w-full rounded bg-defi py-2 px- text-white hover:bg-blue-400 focus:bg-blue-400"
-                            >
-                                Log in
-                            </button>
-                        ) : (
-                            <button
-                                type="submit"
-                                name="_action"
-                                value={action}
-                                className="w-full rounded bg-defi py-2 px- text-white hover:bg-blue-400 focus:bg-blue-400"
-                            >
-                                Sign up
-                            </button>)}
+                        <button
+                            type="submit"
+                            name="_action"
+                            value={action}
+                            className="w-full rounded bg-defi py-2 px- text-white hover:bg-blue-400 focus:bg-blue-400"
+                        >
+                            {
+                                action === 'login' ? 'Login in' : "Sign me up!"
+                            }
+
+                        </button>
+
 
                     </form>
 
                 </div>
 
-                {/* this button toggles between letting user sign up and logging in */}
+                {/* this button toggles between letting user sign up and logging in @22:30*/}
+
                 <button
                     onClick={() => setAction(action == 'login' ? 'sign-up' : 'login')}
-                    type="submit" className="rounded bg-defi py-2 px- text-white hover:bg-blue-700 focus:bg-blue-400" >Sign me up!
+                    type="submit" className="rounded bg-defi py-2 px- text-white hover:bg-blue-400" >
+                    {
+                        action === 'login' ? 'Sign me up!' : "Login in"
+                    }
                 </button>
+
+
+
             </div>
         </Layout>
 

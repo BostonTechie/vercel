@@ -1,8 +1,8 @@
 import { Link } from "@remix-run/react";
 
-import remixSVG from "../svg/remix_log.svg"
-import splitImg from "../svg/splint_logo.jpg"
-import defiImg from "../svg/DeFi_Logo.png"
+import remixSVG from "../images/remix_log.svg"
+import splitImg from "../images/splint_logo.jpg"
+import defiImg from "../images/DeFi_Logo.png"
 
 
 export default function loginIndex() {
@@ -175,11 +175,13 @@ export default function loginIndex() {
                     src: `${remixSVG}`,
                     alt: "remix.run",
                     href: "https://remix.run/",
+
                   },
                   {
                     src: "https://user-images.githubusercontent.com/1500684/158238105-e7279a0c-1640-40db-86b0-3d3a10aab824.svg",
                     alt: "PostgreSQL",
                     href: "https://www.postgresql.org/",
+
                   },
                   {
                     src: "https://user-images.githubusercontent.com/1500684/157764484-ad64a21a-d7fb-47e3-8669-ec046da20c1f.svg",
@@ -194,7 +196,7 @@ export default function loginIndex() {
                   {
                     src: `${splitImg}`,
                     alt: "Splinterlands",
-                    href: "www.splinterlands.com/",
+                    href: "https://splinterlands.com/",
                   },
                   {
                     src: "https://user-images.githubusercontent.com/1500684/157772386-75444196-0604-4340-af28-53b236faa182.svg",
