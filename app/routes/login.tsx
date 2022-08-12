@@ -3,7 +3,7 @@ import goblin from "../images/goblin-splinter-tvs.jpg"
 import remixSVG from "../images/remix_log.svg"
 import splitImg from "../images/splint_logo.jpg"
 import defiImg from "../images/splint_logo.jpg"
-import { requireUserId } from "~/utlis/auth.server";
+
 import { Layout } from "~/components/layout"
 import { FormField } from "~/components/form-field"
 import { useState } from 'react'
@@ -15,7 +15,7 @@ import { getUser } from "~/utlis/auth.server"
 
 
 export const loader: LoaderFunction = async ({ request }) => {
-    return await getUser(request) ? redirect('/') : null
+    return await getUser(request) ? redirect('/hive') : null
 }
 
 // @47 min
