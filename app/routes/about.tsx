@@ -3,11 +3,12 @@ import remixSVG from "../images/remix_log.svg"
 import splitImg from "../images/splint_logo.jpg"
 import defiImg from "../images/DeFi_Logo.png"
 import { LoaderFunction, redirect } from "@remix-run/node";
-import { getUser } from "~/utlis/auth.server"
+import { requireUserId } from "~/utlis/auth.server";
 
 //@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
 export const loader: LoaderFunction = async ({ request }) => {
-  return await getUser(request) ? redirect('/') : null
+  await requireUserId(request)
+  return null
 }
 
 
