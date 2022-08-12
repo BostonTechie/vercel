@@ -4,9 +4,16 @@
 import { Layout } from "~/components/layout"
 import { FormField } from "~/components/form-field"
 import { useState } from 'react'
-import { ActionFunction, json } from "@remix-run/node"
+import { ActionFunction, json, LoaderFunction, redirect } from "@remix-run/node"
 import { validateEmail, validatePassword } from '../utlis/validators.server'
 import { login, register } from '~/utlis/auth.server'
+import { useActionData } from "@remix-run/react"
+import { getUser } from "~/utlis/auth.server"
+
+
+export const loader: LoaderFunction = async ({ request }) => {
+    return await getUser(request) ? redirect('/') : null
+}
 
 // @47 min
 export const action: ActionFunction = async ({ request }) => {
@@ -54,6 +61,8 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Login() {
 
+    const actionData = useActionData()
+
     //@18:30 min
     const [action, setAction] = useState('login')
 
@@ -62,6 +71,10 @@ export default function Login() {
         email: '',
         password: ''
     })
+
+    //@59min
+    const [formError, setFormError] = useState(actionData?.error || '')
+    const [errors, setErrors] = useState(actionData?.error || {})
 
     //@16min
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
@@ -86,6 +99,10 @@ export default function Login() {
                 <div >
                     <form method="post" className="rounded-2xl bg-gray-300 p-6 w-60 gap-y-4">
 
+                        {/* @59min */}
+                        <p>
+                            {formError}
+                        </p>
                         {/* @13.49 min */}
                         <FormField
                             htmlFor="email"
@@ -93,6 +110,7 @@ export default function Login() {
                             type="email"
                             value={formData.email}
                             onChange={e => handleInputChange(e, 'email')}
+                            error={errors?.email}
                         />
                         <br></br>
                         <FormField
@@ -102,6 +120,7 @@ export default function Login() {
                             autoComplete="current-password"
                             value={formData.password}
                             onChange={e => handleInputChange(e, 'password')}
+                            error={errors?.password}
                         />
                         <br></br>
 
