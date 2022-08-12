@@ -694,6 +694,10 @@ video {
   margin-top: 10rem;
 }
 
+.ml-4 {
+  margin-left: 1rem;
+}
+
 .block {
   display: block;
 }
@@ -1020,6 +1024,11 @@ video {
 .bg-defi {
   --tw-bg-opacity: 1;
   background-color: rgb(36 80 160 / var(--tw-bg-opacity));
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-75 {
