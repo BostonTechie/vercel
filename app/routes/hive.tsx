@@ -1,7 +1,14 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { requireUserId } from "~/utlis/auth.server";
+import { LoaderFunction } from "@remix-run/node";
 
+//@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
+export const loader: LoaderFunction = async ({ request }) => {
+    await requireUserId(request)
+    return null
+}
 
 
 import {

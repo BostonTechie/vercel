@@ -1,11 +1,18 @@
 import { Link } from "@remix-run/react";
-
 import remixSVG from "../images/remix_log.svg"
 import splitImg from "../images/splint_logo.jpg"
 import defiImg from "../images/DeFi_Logo.png"
+import { requireUserId } from "~/utlis/auth.server";
+import { LoaderFunction } from "@remix-run/node";
+
+//@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
+export const loader: LoaderFunction = async ({ request }) => {
+  await requireUserId(request)
+  return null
+}
 
 
-export default function loginIndex() {
+export default function mainIndex() {
 
 
   return (
