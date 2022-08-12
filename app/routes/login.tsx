@@ -18,12 +18,13 @@ export const action: ActionFunction = async ({ request }) => {
     if (
         typeof action !== 'string' ||
         typeof email !== 'string' ||
-        typeof password !== 'string') {
-        return json({ error: `Invalid Form Data`, form: action }, { status: 400 })
+        typeof password !== 'string'
+    ) {
+        return json({ error: `Invalid Form Data @ login.tsx`, form: action }, { status: 400 })
     }
 
 
-    // ignored some steps at 52 min
+    // ignored some steps at 51 min if validate returns true it found an error
     const errors = {
         email: validateEmail(email),
         password: validatePassword(password),
@@ -83,7 +84,7 @@ export default function Login() {
             <div className="h-full flex justify-center items-center flex-col gap-y-4">
 
                 <div >
-                    <form className="rounded-2xl bg-gray-300 p-6 w-60 gap-y-4" method="post">
+                    <form method="post" className="rounded-2xl bg-gray-300 p-6 w-60 gap-y-4">
 
                         {/* @13.49 min */}
                         <FormField
@@ -127,7 +128,7 @@ export default function Login() {
                 {/* this button toggles between letting user sign up and logging in @22:30*/}
 
                 <button
-                    onClick={() => setAction(action == 'login' ? 'sign-up' : 'login')}
+                    onClick={() => setAction(action === 'login' ? 'register' : 'login')}
                     type="submit" className="rounded bg-defi py-2 px- text-white hover:bg-blue-400" >
                     {
                         action === 'login' ? 'Sign me up!' : "Login in"

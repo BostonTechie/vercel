@@ -16,6 +16,8 @@ export const validateEmail = (email: string): string | undefined => {
     }
   }
   
+
+  //can use this if I ever make a profile page
   export const validateName = (name: string): string | undefined => {
     if (!name.length) return `Please enter a value`
   }
