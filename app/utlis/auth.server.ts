@@ -105,6 +105,9 @@ function getUserSession(request: Request) {
   return storage.getSession(request.headers.get('Cookie'))
 }
 
+
+//-------------------if logged in redirect home @1hr 11 min--------------------------------------------
+
 async function getUserId(request: Request) {
   const session = await getUserSession(request)
   const userId = session.get('userId')
