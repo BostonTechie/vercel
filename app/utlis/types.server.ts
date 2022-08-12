@@ -1,12 +1,14 @@
 // app/utils/types.server.ts
-export type RegisterForm = {
+// https://www.youtube.com/watch?v=vR33ZRJekHk @ 29 - 39:35
+
+
+export interface RegisterForm  {
     email: string
     password: string
  
   }
 
-  export type LoginForm = {
+  export interface LoginForm  {
     email: string
     password: string
- 
   }
