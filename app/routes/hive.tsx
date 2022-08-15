@@ -2,13 +2,9 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { requireUserId } from "~/utlis/auth.server";
-import { LoaderFunction } from "@remix-run/node";
-
-//@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
-export const loader: LoaderFunction = async ({ request }) => {
-    await requireUserId(request)
-    return null
-}
+import { LoaderFunction, json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { prisma } from '../utlis/prisma.server'
 
 
 import {
@@ -22,7 +18,14 @@ import {
     XIcon,
 } from '@heroicons/react/outline'
 
-
+//@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
+export const loader: LoaderFunction = async ({ request }) => {
+    await requireUserId(request)
+    const res = await prisma.hive.findMany({
+        where: {},
+    })
+    return json(res)
+}
 
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -37,14 +40,10 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function hive() {
+export default function Hive() {
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
-
-    const people = [
-        { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-        // More people...
-    ]
+    const cryptoData = useLoaderData()
 
 
 
@@ -52,14 +51,6 @@ export default function hive() {
 
     return (
         <>
-            {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
             <div>
                 <Transition.Root show={sidebarOpen} as={Fragment}>
                     <Dialog as="div" className="relative z-40 md:hidden" onClose={setSidebarOpen}>
@@ -316,50 +307,101 @@ export default function hive() {
                                                             </tr>
                                                         </thead>
                                                         <tbody className="bg-white">
-                                                            {people.map((person, personIdx) => (
-                                                                <tr key={person.email}>
+                                                            {cryptoData.map((data, dataIdx) => (
+                                                                <tr key={data.dbid}>
+
+
                                                                     <td
                                                                         className={classNames(
-                                                                            personIdx !== people.length - 1 ? 'border-b border-gray-200' : '',
+                                                                            dataIdx !== cryptoData.length - 1 ? 'border-b border-gray-200' : '',
                                                                             'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
                                                                         )}
                                                                     >
-                                                                        {person.name}
+                                                                        {data.dbid}
+                                                                    </td>
+
+                                                                    <td
+                                                                        className={classNames(
+                                                                            dataIdx !== cryptoData.length - 1 ? 'border-b border-gray-200' : '',
+                                                                            'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
+                                                                        )}
+                                                                    >
+                                                                        {data.Asset}
+                                                                    </td>
+
+                                                                    <td
+                                                                        className={classNames(
+                                                                            dataIdx !== cryptoData.length - 1 ? 'border-b border-gray-200' : '',
+                                                                            'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
+                                                                        )}
+                                                                    >
+                                                                        {data.From}
+                                                                    </td>
+
+                                                                    <td
+                                                                        className={classNames(
+                                                                            dataIdx !== cryptoData.length - 1 ? 'border-b border-gray-200' : '',
+                                                                            'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
+                                                                        )}
+                                                                    >
+                                                                        {data.To}
+                                                                    </td>
+
+                                                                    <td
+                                                                        className={classNames(
+                                                                            dataIdx !== cryptoData.length - 1 ? 'border-b border-gray-200' : '',
+                                                                            'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
+                                                                        )}
+                                                                    >
+                                                                        {data.Quantity}
+                                                                    </td>
+
+                                                                    <td>{data.Token_Price}</td>
+
+                                                                    <td
+                                                                        className={classNames(
+                                                                            dataIdx !== cryptoData.length - 1 ? 'border-b border-gray-200' : '',
+                                                                            'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
+                                                                        )}
+                                                                    >
+                                                                        {data.Gross_Proceed}
+                                                                    </td>
+
+                                                                    <td
+                                                                        className={classNames(
+                                                                            dataIdx !== cryptoData.length - 1 ? 'border-b border-gray-200' : '',
+                                                                            'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
+                                                                        )}
+                                                                    >
+                                                                        {data.Net}
                                                                     </td>
                                                                     <td
                                                                         className={classNames(
-                                                                            personIdx !== people.length - 1 ? 'border-b border-gray-200' : '',
-                                                                            'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell'
+                                                                            dataIdx !== cryptoData.length - 1 ? 'border-b border-gray-200' : '',
+                                                                            'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
                                                                         )}
                                                                     >
-                                                                        {person.title}
+                                                                        {data.Transaction_Type}
                                                                     </td>
+
                                                                     <td
                                                                         className={classNames(
-                                                                            personIdx !== people.length - 1 ? 'border-b border-gray-200' : '',
-                                                                            'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell'
+                                                                            dataIdx !== cryptoData.length - 1 ? 'border-b border-gray-200' : '',
+                                                                            'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
                                                                         )}
                                                                     >
-                                                                        {person.email}
+                                                                        {data.dbid}
                                                                     </td>
+
                                                                     <td
                                                                         className={classNames(
-                                                                            personIdx !== people.length - 1 ? 'border-b border-gray-200' : '',
-                                                                            'whitespace-nowrap px-3 py-4 text-sm text-gray-500'
+                                                                            dataIdx !== cryptoData.length - 1 ? 'border-b border-gray-200' : '',
+                                                                            'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
                                                                         )}
                                                                     >
-                                                                        {person.role}
+                                                                        {data.dbid}
                                                                     </td>
-                                                                    <td
-                                                                        className={classNames(
-                                                                            personIdx !== people.length - 1 ? 'border-b border-gray-200' : '',
-                                                                            'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8'
-                                                                        )}
-                                                                    >
-                                                                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                                                                            Edffit<span className="sr-only">, {person.name}</span>
-                                                                        </a>
-                                                                    </td>
+
                                                                 </tr>
                                                             ))}
                                                         </tbody>
