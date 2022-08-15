@@ -75,7 +75,10 @@ export default function hive() {
                             <div className="fixed inset-0 bg-gray-600 bg-opacity-75" />
                         </Transition.Child>
 
+
                         <div className="fixed inset-0 flex z-40">
+
+
                             <Transition.Child
                                 as={Fragment}
                                 enter="transition ease-in-out duration-300 transform"
@@ -86,6 +89,7 @@ export default function hive() {
                                 leaveTo="-translate-x-full"
                             >
                                 <Dialog.Panel className="relative flex-1 flex flex-col max-w-xs w-full bg-indigo-700">
+
                                     <Transition.Child
                                         as={Fragment}
                                         enter="ease-in-out duration-300"
@@ -142,9 +146,11 @@ export default function hive() {
                                                         alt=""
                                                     />
                                                 </div>
+
                                                 <div className="ml-3">
                                                     <p className="text-base font-medium text-white">Tom Cook</p>
                                                     <p className="text-sm font-medium text-indigo-200 group-hover:text-white">View profile</p>
+
                                                 </div>
                                             </div>
                                         </a>
@@ -235,7 +241,7 @@ export default function hive() {
                                                 type="button"
                                                 className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
                                             >
-                                                Add user
+                                                Logout
                                             </button>
                                         </div>
                                     </div>
