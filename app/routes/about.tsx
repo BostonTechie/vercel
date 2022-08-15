@@ -6,10 +6,10 @@ import { LoaderFunction, redirect } from "@remix-run/node";
 import { requireUserId } from "~/utlis/auth.server";
 
 //@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
-export const loader: LoaderFunction = async ({ request }) => {
-    await requireUserId(request)
-    return null
-}
+// export const loader: LoaderFunction = async ({ request }) => {
+//     await requireUserId(request)
+//     return null
+// }
 
 
 

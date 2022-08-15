@@ -6,7 +6,7 @@ import { requireUserId } from "~/utlis/auth.server";
 import { LoaderFunction } from "@remix-run/node";
 
 
-//what is wrong wtf?
+
 //@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
 export const loader: LoaderFunction = async ({ request }) => {
     await requireUserId(request)
