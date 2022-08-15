@@ -16,6 +16,8 @@ import {
     MenuIcon,
     UsersIcon,
     XIcon,
+    QuestionMarkCircleIcon,
+
 } from '@heroicons/react/outline'
 
 //@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
@@ -28,12 +30,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 const navigation = [
-    { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-    { name: 'Team', href: '#', icon: UsersIcon, current: false },
-    { name: 'Notes', href: '#', icon: FolderIcon, current: false },
-    { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-    { name: 'Documents', href: '#', icon: InboxIcon, current: false },
-    { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
+    { name: 'Dashboard', href: '/home', icon: HomeIcon, current: true },
+    { name: 'Team', href: '/under', icon: UsersIcon, current: false },
+    { name: 'Notes', href: '/under', icon: FolderIcon, current: false },
+    { name: 'Calendar', href: '/under', icon: CalendarIcon, current: false },
+    { name: 'Documents', href: '/under', icon: InboxIcon, current: false },
+    { name: 'Reports', href: '/under', icon: ChartBarIcon, current: false },
+    { name: 'About', href: '/about', icon: QuestionMarkCircleIcon, current: false }
 ]
 
 function classNames(...classes) {
@@ -390,7 +393,7 @@ export default function Hive() {
                                                                             'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
                                                                         )}
                                                                     >
-                                                                        {data.dbid}
+                                                                        debit
                                                                     </td>
 
                                                                     <td
@@ -399,7 +402,7 @@ export default function Hive() {
                                                                             'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
                                                                         )}
                                                                     >
-                                                                        {data.dbid}
+                                                                        credit
                                                                     </td>
 
                                                                 </tr>

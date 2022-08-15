@@ -11,7 +11,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Home() {
     return (
-        <h2>hi i am home page, I am under construction</h2>
+        <h2>this page is under construction</h2>
 
     )
 }
