@@ -96,7 +96,7 @@ export async function requireUserId(
   const userId = session.get('userId')
   if (!userId || typeof userId !== 'string') {
     const searchParams = new URLSearchParams([['redirectTo', redirectTo]])
-    throw redirect(`/?${searchParams}`)
+    throw redirect(`/login?${searchParams}`)
   }
   return userId
 }
@@ -134,7 +134,7 @@ export async function getUser(request: Request) {
 
 export async function logout(request: Request) {
   const session = await getUserSession(request)
-  return redirect('/', {
+  return redirect('/login', {
     headers: {
       'Set-Cookie': await storage.destroySession(session),
     },
