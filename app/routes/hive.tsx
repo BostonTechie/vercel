@@ -4,11 +4,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { requireUserId } from "~/utlis/auth.server";
 import { LoaderFunction } from "@remix-run/node";
 
-//@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
-export const loader: LoaderFunction = async ({ request }) => {
-    await requireUserId(request)
-    return null
-}
 
 
 import {
@@ -22,7 +17,11 @@ import {
     XIcon,
 } from '@heroicons/react/outline'
 
-
+//@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
+export const loader: LoaderFunction = async ({ request }) => {
+    await requireUserId(request)
+    return null
+}
 
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
