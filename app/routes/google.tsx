@@ -1,20 +1,20 @@
 //https://www.youtube.com/watch?v=NXqEP_PsPNc
 
 import { PrismaClient } from '@prisma/client'
-// import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-// import { hiveData } from "@prisma/client"
-// import { json } from "@remix-run/node";
+import { hiveData } from "@prisma/client"
+import { json } from "@remix-run/node";
 
 const prisma = new PrismaClient({})
 
-// export const loader: LoaderFunction = async () => {
-//     const gcpData: LoaderData = {
-//         hiveData: await prisma.hive.findMany()
-//     }
-//     return json(gcpData)
+export const loader: LoaderFunction = async () => {
+    const gcpData: LoaderData = {
+        hiveData: await prisma.hive.findMany()
+    }
+    return json(gcpData)
 
-// }
+}
 
 export default function Google() {
     const hiveData = useLoaderData<loaderData>()

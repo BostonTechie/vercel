@@ -1,24 +1,58 @@
+//https://www.youtube.com/watch?v=vR33ZRJekHk
 
-//@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
-
-<!-- when you login trigger this -->
-import { getUser } from "~/utlis/auth.server"
-import { LoaderFunction, redirect } from "@remix-run/node";
-
-//@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
-export const loader: LoaderFunction = async ({ request }) => {
-    return await getUser(request) ? redirect('/home') : null
-}
+import { Form } from "@remix-run/react"
+import { Layout } from "~/components/layout"
+import { FormField } from "~/components/form-field"
 
 
+export default function Login() {
+    return (
+        <Layout>
+            <div className="h-full flex justify-center items-center flex-col gap-y-4">
 
-<!-- protect the page  -->
+                <Form method="post" className="rounded-2xl bg-gray-200 p-6 w-60 gap-y-4" noValidate>
+                    <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700"
+                    >
+                        Email address
+                    </label>
 
-import { LoaderFunction} from "@remix-run/node";
+                    <input
+                        autoFocus={true}
+                        required
+                        type="email"
+                        id="email"
+                        autoComplete="email"
+                        className="w-full rounded border border-gray-500 px-2 py-1 text-lg">
+                    </input>
 
-import { requireUserId } from "~/utlis/auth.server";
+                    <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700"
+                    >
+                        Password
+                    </label>
 
-export const loader: LoaderFunction = async ({ request }) => {
-  await requireUserId(request)
-  return null
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        autoComplete="current-password"
+                        className="w-full rounded border border-gray-500 px-2 py-1 text-lg">
+                    </input>
+
+                    <button
+                        type="submit"
+                        className="w-full rounded bg-blue-500 py-2 px- text-white hover:bg-blue-700 focus:bg-blue-400"
+                    >
+                        Log in
+                    </button>
+
+                </Form>
+
+            </div>
+        </Layout>
+
+    )
 }
