@@ -10,7 +10,7 @@ import {
 
 import styles from './styles/tailwind.css'
 
-export const links: LinksFunction = () => {
+export function links() {
   return [{ rel: 'stylesheet', href: styles }]
 }
 
