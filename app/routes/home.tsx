@@ -5,10 +5,10 @@ import { LoaderFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react"
 
 
-export const loader: LoaderFunction = async ({ request }) => {
-    await requireUserId(request)
-    return null
-}
+// export const loader: LoaderFunction = async ({ request }) => {
+//     await requireUserId(request)
+//     return null
+// }
 
 export default function Home() {
     return (<>
