@@ -11,7 +11,7 @@ export default function map() {
 
             <Link to="../people" style={{ color: "blue" }}>People constant</Link>
             <br></br>
-            <Link to="../google" style={{ color: "blue" }}>GCP database</Link>
+            <Link to="../google" style={{ color: "blue" }}>ignore me</Link>
         </main>
 
     )
