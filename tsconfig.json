@@ -16,6 +16,6 @@
       "~/*": ["./app/*"]
     },
     "noEmit": true,
-  
+    "strict": true
   }
 }
