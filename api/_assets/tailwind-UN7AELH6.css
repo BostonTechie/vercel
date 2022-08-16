@@ -827,10 +827,6 @@ video {
   width: 1rem;
 }
 
-.w-1\/6 {
-  width: 16.666667%;
-}
-
 .min-w-full {
   min-width: 100%;
 }
@@ -1047,11 +1043,6 @@ video {
 .bg-defi {
   --tw-bg-opacity: 1;
   background-color: rgb(36 80 160 / var(--tw-bg-opacity));
-}
-
-.bg-gray-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-75 {
