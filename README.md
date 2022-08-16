@@ -84,7 +84,7 @@ you should have something that looks like this:
 <!-- ------------------------------ -->
 
 now run 
-  - npm i -D concurrently
+  - npm i -D concurrently autoprefixer postcss
  when you now run you npm run dev you should see;
   tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css -w
 
