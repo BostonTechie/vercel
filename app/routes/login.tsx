@@ -13,7 +13,7 @@ import { getUser } from "~/utils/auth.server"
 
 
 export const loader: LoaderFunction = async ({ request }) => {
-    return await getUser(request) ? redirect('/') : null
+    return await getUser(request) ? redirect('/hive') : null
 }
 
 // @47 min
