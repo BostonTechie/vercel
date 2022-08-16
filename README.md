@@ -30,6 +30,8 @@ install the dependency for tailwind cli command (note i use - for spacing ignore
     plugins: [],
   };
 
+
+npm install -D tailwindcss postcss autoprefixer concurrently
   <!-- ------------------------------ -->
  
 create a "styles" folder in your route
@@ -74,17 +76,17 @@ now we have to edit the line which still says ("dev": "remix dev",) edit it to
 you should have something that looks like this:
 
 <!-- ------------------------------ -->
-  "scripts": {
-    "build": "remix build",
-    "deploy": "fly deploy --remote-only",
+
+   "scripts": {
+    "build": "npm run build:css && remix build",
+    "build:css": "tailwindcss -m -i ./styles/app.css -o app/styles/app.css",
     "dev": "concurrently \"npm run dev:css\" \"remix dev\"",
-    "dev:css": "tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css -w",
-    "start": "remix-serve build"
+    "dev:css": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css"
   },
 <!-- ------------------------------ -->
 
 now run 
-  - npm i -D concurrently
+  - npm i -D concurrently autoprefixer postcss
  when you now run you npm run dev you should see;
   tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css -w
 

@@ -1,4 +1,4 @@
-import { requireUserId } from "~/utlis/auth.server";
+import { requireUserId } from "~/utils/auth.server";
 import { LoaderFunction } from "@remix-run/node";
 
 

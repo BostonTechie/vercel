@@ -3,7 +3,7 @@ import remixSVG from "../images/remix_log.svg"
 import splitImg from "../images/splint_logo.jpg"
 import defiImg from "../images/DeFi_Logo.png"
 import { LoaderFunction, redirect } from "@remix-run/node";
-import { requireUserId } from "~/utlis/auth.server";
+import { requireUserId } from "~/utils/auth.server";
 
 //@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
 export const loader: LoaderFunction = async ({ request }) => {

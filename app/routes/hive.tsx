@@ -1,10 +1,10 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { requireUserId } from "~/utlis/auth.server";
+import { requireUserId } from "~/utils/auth.server";
 import { LoaderFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { prisma } from '../utlis/prisma.server'
+import { prisma } from '../utils/prisma.server'
 
 
 import {
@@ -24,7 +24,7 @@ import {
 
 //@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
 export const loader: LoaderFunction = async ({ request }) => {
-    await requireUserId(request)
+    // await requireUserId(request)
     const res = await prisma.hive.findMany({
         where: {},
     })

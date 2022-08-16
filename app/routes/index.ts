@@ -1,6 +1,6 @@
 //https://www.youtube.com/watch?v=Mx9Xsq9JNXo&t=0s
 
-import { requireUserId } from "~/utlis/auth.server";
+import { requireUserId } from "~/utils/auth.server";
 import { LoaderFunction, redirect } from "@remix-run/node";
 
 

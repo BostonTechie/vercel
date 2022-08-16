@@ -10,7 +10,7 @@ import {
 
 import styles from './styles/tailwind.css'
 
-export const links: LinksFunction = () => {
+export function links() {
   return [{ rel: 'stylesheet', href: styles }]
 }
 
@@ -26,8 +26,6 @@ export default function App() {
       <head>
         <Meta />
         <Links />
-        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" ></script>
-
       </head>
       <body>
         <Outlet />

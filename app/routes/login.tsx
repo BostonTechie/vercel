@@ -6,10 +6,10 @@ import { FormField } from "~/components/form-field"
 import goblin from "../images/goblin-splinter-tvs.jpg"
 import { useState } from 'react'
 import { ActionFunction, json, LoaderFunction, redirect } from "@remix-run/node"
-import { validateEmail, validatePassword } from '../utlis/validators.server'
-import { login, register } from '~/utlis/auth.server'
+import { validateEmail, validatePassword } from '../utils/validators.server'
+import { login, register } from '~/utils/auth.server'
 import { useActionData } from "@remix-run/react"
-import { getUser } from "~/utlis/auth.server"
+import { getUser } from "~/utils/auth.server"
 
 
 export const loader: LoaderFunction = async ({ request }) => {
