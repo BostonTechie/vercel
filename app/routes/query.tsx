@@ -9,7 +9,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Query() {
     return (
-        <h2>hi i am home page, I am under construction</h2>
+        <h2>I am the query page</h2>
 
     )
 }

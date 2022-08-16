@@ -176,7 +176,8 @@ export default function Login() {
                                                     {/* this button toggles between letting user sign up and logging in @22:30*/}
                                                     <br></br><br></br>
 
-                                                    slack drewlongshot for access permissions
+                                                    slack drewlongshot for access permissions or e-mail andrew@splinterlands.com
+
 
                                                     {/* <button
                                                         onClick={() => setAction(action === 'login' ? 'register' : 'login')}
