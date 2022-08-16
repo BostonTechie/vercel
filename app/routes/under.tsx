@@ -2,7 +2,6 @@
 
 import { requireUserId } from "~/utlis/auth.server";
 import { LoaderFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react"
 
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -11,11 +10,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export default function Home() {
-    return (<>
-        <h2>hi i am home page, I am under construction</h2>
+    return (
+        <h2>this page is under construction</h2>
 
-        <Link to="../hive" style={{ color: "blue" }}>Click here for the hive data</Link>
-    </>
     )
 }
 
