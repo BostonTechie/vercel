@@ -17,6 +17,7 @@ import {
     UsersIcon,
     XIcon,
     QuestionMarkCircleIcon,
+    LogoutIcon,
 
 } from '@heroicons/react/outline'
 
@@ -37,7 +38,8 @@ const navigation = [
     { name: 'Calendar', href: '/under', icon: CalendarIcon, current: false },
     { name: 'Documents', href: '/under', icon: InboxIcon, current: false },
     { name: 'Reports', href: '/under', icon: ChartBarIcon, current: false },
-    { name: 'About', href: '/about', icon: QuestionMarkCircleIcon, current: false }
+    { name: 'About', href: '/about', icon: QuestionMarkCircleIcon, current: false },
+    { name: 'Logout', href: '/under', icon: LogoutIcon, current: false },
 ]
 
 function classNames(...classes) {
