@@ -13,6 +13,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     const userId = await requireUserId(request)
     const res = await prisma.hive.findMany({
         where: {},
+        take: 3,
     })
     return json(res)
 }
@@ -28,7 +29,6 @@ export default function Hive() {
     return (
         <Layout>
             <Sidebar />
-
             <div className="mt-8 flex flex-col float-right w-9/12">
                 <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
                     <div className="inline-block min-w-full py-2 align-middle">
