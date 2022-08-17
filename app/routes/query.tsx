@@ -32,11 +32,13 @@ export default function Query() {
                             <div className="w-1/4">
                                 <Dropdown />
                             </div>
-
+                            where am i
                         </div>
                     </main>
                 </div>
             </div>
+
+
 
         </Layout >
     )

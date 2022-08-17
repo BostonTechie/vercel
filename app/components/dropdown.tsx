@@ -21,10 +21,10 @@ function classNames(...classes) {
 }
 
 export function Dropdown() {
-    const [selected, setSelected] = useState(queryReturn[2])
+    const [selected, setSelectedNumber] = useState(queryReturn[2])
 
     return (
-        <Listbox value={selected} onChange={setSelected}>
+        <Listbox value={selected} onChange={setSelectedNumber}>
             {({ open }) => (
                 <>
                     <Listbox.Label className="block text-sm font-medium text-gray-700">Limit: {selected.number} </Listbox.Label>
