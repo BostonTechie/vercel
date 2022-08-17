@@ -19,7 +19,7 @@ import {
 import { SearchIcon } from '@heroicons/react/solid'
 
 const navigation = [
-    { name: 'Dashboard', href: '/home', icon: HomeIcon, current: false },
+    { name: 'Home', href: '/home', icon: HomeIcon, current: false },
     { name: 'Team', href: '/under', icon: UsersIcon, current: false },
     { name: 'Projects', href: '/under', icon: FolderIcon, current: false },
     { name: 'Calendar', href: '/under', icon: CalendarIcon, current: false },
@@ -69,7 +69,7 @@ export function Sidebar() {
                                 leaveFrom="translate-x-0"
                                 leaveTo="-translate-x-full"
                             >
-                                <Dialog.Panel className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-indigo-700">
+                                <Dialog.Panel className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-defi">
                                     <Transition.Child
                                         as={Fragment}
                                         enter="ease-in-out duration-300"
@@ -126,7 +126,7 @@ export function Sidebar() {
                 {/* Static sidebar for desktop */}
                 <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
                     {/* Sidebar component, swap this element with another sidebar if you like */}
-                    <div className="flex flex-col flex-grow pt-5 bg-indigo-700 overflow-y-auto">
+                    <div className="flex flex-col flex-grow pt-5 bg-defi overflow-y-auto">
                         <div className="flex items-center flex-shrink-0 px-4">
                             <img
                                 className="h-8 w-auto"
