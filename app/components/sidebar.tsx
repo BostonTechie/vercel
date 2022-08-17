@@ -19,7 +19,7 @@ import {
 import { SearchIcon } from '@heroicons/react/solid'
 
 const navigation = [
-    { name: 'Dashboard', href: '/under', icon: HomeIcon, current: true },
+    { name: 'Dashboard', href: '/home', icon: HomeIcon, current: false },
     { name: 'Team', href: '/under', icon: UsersIcon, current: false },
     { name: 'Projects', href: '/under', icon: FolderIcon, current: false },
     { name: 'Calendar', href: '/under', icon: CalendarIcon, current: false },
