@@ -15,7 +15,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     return null
 }
 
-export default function Under() {
+export default function RouteNameGoesHere() {
     return (<Layout>
         <Sidebar />
         <div className="mt-8 flex flex-col float-right w-9/12">
@@ -24,7 +24,7 @@ export default function Under() {
 
                     {/* put your data into the main section below */}
 
-                    <main > <h2>this page is under construction</h2></main>
+                    <main >Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium eligendi beatae amet, magni temporibus accusantium sit porro corrupti vitae. Quisquam, asperiores recusandae ut molestias eum beatae. Delectus qui dolorem aliquam!</main>
                 </div>
             </div>
         </div>

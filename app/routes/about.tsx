@@ -1,26 +1,30 @@
-import { Link } from "@remix-run/react";
+//https://www.youtube.com/watch?v=Mx9Xsq9JNXo&t=0s
+//the purpose of this template is to easyily create a new route the already has the Sidebar compnent in it as well as checking if the user is logged in
+
+//You may need to import prisma or other requirements based on nature of route
+
 import remixSVG from "../images/remix_log.svg"
 import splitImg from "../images/splint_logo.jpg"
 import defiImg from "../images/DeFi_Logo.png"
-import { LoaderFunction, redirect } from "@remix-run/node";
 import { requireUserId } from "~/utils/auth.server";
+import { LoaderFunction } from "@remix-run/node";
+import { Layout } from "~/components/layout";
+import { Sidebar } from '~/components/sidebar'
 
-//@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
+
 export const loader: LoaderFunction = async ({ request }) => {
     await requireUserId(request)
     return null
 }
 
+export default function About() {
+    return (<Layout>
+        <Sidebar />
+        <div className="mt-8 flex flex-col float-right w-9/12">
+            <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+                <div className="inline-block min-w-full py-2 align-middle">
 
-
-export default function mainIndex() {
-
-
-    return (
-        <div className="min-h-screen bg-gray-100">
-
-            <div className="py-6">
-                <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
+                    {/* put your data into the main section below */}
 
                     <main className="lg:col-span-9 xl:col-span-6">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum vel consequuntur nemo nostrum eum iste minus in corporis excepturi ipsum, numquam vero vitae iusto tempora cumque modi illo. Facere, distinctio!
@@ -102,10 +106,12 @@ export default function mainIndex() {
                                     </a>
                                 ))}
                             </div>
-                        </div>} </div>
+                        </div>}
+                        </div>
                     </aside>
                 </div>
             </div>
         </div>
+    </Layout>
     )
 }

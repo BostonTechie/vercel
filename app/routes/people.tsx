@@ -1,4 +1,5 @@
 //practice using the loader data function in remix see "map.tsx"
+// this page to be deleted
 //https://www.youtube.com/watch?v=NXqEP_PsPNc
 
 import { useLoaderData } from "@remix-run/react"

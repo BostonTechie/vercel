@@ -1,5 +1,5 @@
 //practice using the loader data function in remix see people tsx
-
+// this page to be deleted
 
 import { Link } from "@remix-run/react"
 
