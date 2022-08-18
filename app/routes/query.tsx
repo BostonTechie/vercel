@@ -3,7 +3,7 @@
 
 //You may need to import prisma or other requirements based on nature of route
 
-
+import { Link } from "@remix-run/react"
 import { requireUserId } from "~/utils/auth.server";
 import { LoaderFunction } from "@remix-run/node";
 import { Layout } from "~/components/layout";
@@ -32,7 +32,8 @@ export default function Query() {
                             <div className="w-1/4">
                                 <Dropdown />
                             </div>
-                            where am i
+                            <Link to="../hive" style={{ color: "blue" }}>
+                                <p> Click here for the hive data</p></Link>
                         </div>
                     </main>
                 </div>
