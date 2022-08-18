@@ -12,3 +12,9 @@ export interface RegisterForm  {
     email: string
     password: string
   }
+
+  //query form intended to allow user to query DB in specific ways
+  export interface QueryForm  {
+    number: number
+    account: string
+  }

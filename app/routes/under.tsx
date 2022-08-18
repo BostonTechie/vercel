@@ -3,7 +3,7 @@
 
 //You may need to import prisma or other requirements based on nature of route
 
-
+import { Link } from "@remix-run/react"
 import { requireUserId } from "~/utils/auth.server";
 import { LoaderFunction } from "@remix-run/node";
 import { Layout } from "~/components/layout";
@@ -24,10 +24,15 @@ export default function Under() {
 
                     {/* put your data into the main section below */}
 
-                    <main > <h2>this page is under construction</h2></main>
+                    <main > <h2>this page is under construction</h2>
+                        <Link to="../hive" style={{ color: "blue" }}>
+                            <p> Click here for the hive data</p></Link>
+                        <p>or hit the reports icon to the left to make a new query</p>
+                    </main>
+
                 </div>
             </div>
         </div>
-    </Layout>
+    </Layout >
     )
 }
