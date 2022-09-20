@@ -44,3 +44,8 @@ model AccountingJE {
   dbid  Hive    @relation(fields: [jeId], references: [dbid], onDelete: Cascade)
   Asset String?
 }
+
+model CreateThis {
+  jeId  Int     @id @default(autoincrement())
+  Asset String?
+}

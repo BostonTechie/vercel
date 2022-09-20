@@ -3,9 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  let myArray = [4, 5, 6];
-
-  const res = await prisma.hive.findMany({
+  const resAllBuys = await prisma.hive.findMany({
     where: { Transaction_Type: "BUY" },
     select: {
       dbid: true,
@@ -13,22 +11,34 @@ async function main() {
     take: 3,
   });
 
-  console.log("my array", myArray, " my response 1", res[0]);
-
-  for (let i = 0; i < res.length; i++) {
+  for (const element of resAllBuys) {
     const res2 = await prisma.hive.findUnique({
       where: {
-        dbid: res[i].dbid,
+        dbid: element.dbid,
       },
       select: {
         dbid: true,
+        Asset_Type: true,
         Asset: true,
+        From: true,
+        To: true,
+        Quantity: true,
+        Basis_Date: true,
+        Proceed_Date: true,
+        Token_Price: true,
+        Gross_Proceed: true,
+        Cost_of_Basis: true,
+        Net: true,
+        Transaction_Type: true,
       },
     });
-    console.log(res2);
+
+    console.log(res2?.dbid, res2?.Asset);
+
+    let dHash = res2?.dbid;
+    let aHash = res2?.Asset;
   }
 }
-
 main()
   .catch((e) => {
     console.error(e);
