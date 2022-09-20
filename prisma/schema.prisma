@@ -19,21 +19,28 @@ model User {
 }
 
 model Hive {
-  dbid             Int       @id @default(autoincrement())
-  Asset_Type       String?   @map("Asset Type")
+  dbid             Int            @id @default(autoincrement())
+  Asset_Type       String?        @map("Asset Type")
   Asset            String?
   From             String?
   To               String?
-  Quantity         Float?    @db.Real
-  Basis_Date       DateTime? @map("Basis Date") @db.Date
-  Proceed_Date     DateTime? @map("Proceed Date") @db.Date
-  Token_Price      Float?    @map("Token Price") @db.Real
-  Gross_Proceed    Float?    @map("Gross Proceed") @db.Real
-  Cost_of_Basis    Float?    @map("Cost of Basis") @db.Real
-  Net              Float?    @db.Real
-  Transaction_Type String?   @map("Transaction Type")
+  Quantity         Float?         @db.Real
+  Basis_Date       DateTime?      @map("Basis Date") @db.Date
+  Proceed_Date     DateTime?      @map("Proceed Date") @db.Date
+  Token_Price      Float?         @map("Token Price") @db.Real
+  Gross_Proceed    Float?         @map("Gross Proceed") @db.Real
+  Cost_of_Basis    Float?         @map("Cost of Basis") @db.Real
+  Net              Float?         @db.Real
+  Transaction_Type String?        @map("Transaction Type")
   Duration         String?
   Block            Int?
-  Transaction_ID   String?   @map("Transaction ID")
+  Transaction_ID   String?        @map("Transaction ID")
   Note             String?
+  AccountingJE     AccountingJE[]
+}
+
+model AccountingJE {
+  jeId  Int     @unique
+  dbid  Hive    @relation(fields: [jeId], references: [dbid], onDelete: Cascade)
+  Asset String?
 }
