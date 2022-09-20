@@ -15,17 +15,18 @@ async function main() {
 
   console.log("my array", myArray, " my response 1", res[0]);
 
-  const res2 = await prisma.hive.findMany({
-    where: {
-      dbid: res[0].dbid,
-    },
-    select: {
-      dbid: true,
-      Asset: true,
-    },
-  });
-
-  console.log(res2);
+  for (let i = 0; i < res.length; i++) {
+    const res2 = await prisma.hive.findUnique({
+      where: {
+        dbid: res[i].dbid,
+      },
+      select: {
+        dbid: true,
+        Asset: true,
+      },
+    });
+    console.log(res2);
+  }
 }
 
 main()
