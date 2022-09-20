@@ -40,7 +40,7 @@ model Hive {
 }
 
 model AccountingJE {
-  jeId  Int     @unique
+  jeId  Int     @id @default(autoincrement())
   dbid  Hive    @relation(fields: [jeId], references: [dbid], onDelete: Cascade)
   Asset String?
 }

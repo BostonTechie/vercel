@@ -179,13 +179,13 @@ export default function Login() {
                                                     slack drewlongshot for access permissions or e-mail andrew@splinterlands.com
 
 
-                                                    {/* <button
+                                                    <button
                                                         onClick={() => setAction(action === 'login' ? 'register' : 'login')}
                                                         type="submit" className="rounded bg-defi py-2 px- text-white hover:bg-blue-400" >
                                                         {
                                                             action === 'login' ? 'Sign me up!' : "Login in"
                                                         }
-                                                    </button> */}
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>
