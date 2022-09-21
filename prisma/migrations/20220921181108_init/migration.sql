@@ -11,7 +11,7 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Hive" (
-    "dbid" SERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "Asset Type" TEXT,
     "Asset" TEXT,
     "From" TEXT,
@@ -29,27 +29,20 @@ CREATE TABLE "Hive" (
     "Transaction ID" TEXT,
     "Note" TEXT,
 
-    CONSTRAINT "Hive_pkey" PRIMARY KEY ("dbid")
+    CONSTRAINT "Hive_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "AccountingJE" (
-    "jeId" SERIAL NOT NULL,
-    "Asset" TEXT,
-
-    CONSTRAINT "AccountingJE_pkey" PRIMARY KEY ("jeId")
-);
-
--- CreateTable
-CREATE TABLE "Timisgod" (
+CREATE TABLE "accountJE" (
     "id" SERIAL NOT NULL,
-    "Asset" TEXT,
+    "Asset" TEXT NOT NULL,
+    "Jeid" INTEGER NOT NULL,
 
-    CONSTRAINT "Timisgod_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "accountJE_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "AccountingJE" ADD CONSTRAINT "AccountingJE_jeId_fkey" FOREIGN KEY ("jeId") REFERENCES "Hive"("dbid") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "accountJE" ADD CONSTRAINT "accountJE_Jeid_fkey" FOREIGN KEY ("Jeid") REFERENCES "Hive"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -1,6 +1,5 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,7 +18,7 @@ model User {
 }
 
 model Hive {
-  dbid             Int            @id @default(autoincrement())
+  id               Int            @id @default(autoincrement())
   Asset_Type       String?        @map("Asset Type")
   Asset            String?
   From             String?
@@ -36,16 +35,12 @@ model Hive {
   Block            Int?
   Transaction_ID   String?        @map("Transaction ID")
   Note             String?
-  AccountingJE     AccountingJE[]
+  accountingJE     accountingJE[]
 }
 
-model AccountingJE {
-  jeId  Int     @id @default(autoincrement())
-  dbid  Hive    @relation(fields: [jeId], references: [dbid], onDelete: Cascade)
-  Asset String?
-}
-
-model CreateThis {
-  jeId  Int     @id @default(autoincrement())
-  Asset String?
+model accountingJE {
+  id         Int    @id @default(autoincrement())
+  Asset      String
+  CryptoDBid Int
+  hive       Hive   @relation(fields: [CryptoDBid], references: [id])
 }
