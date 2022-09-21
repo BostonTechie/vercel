@@ -37,8 +37,26 @@ async function main() {
 
     let dHash = res2?.dbid;
     let aHash = res2?.Asset;
+
+    // const buyJeCreate = await prisma.accountingJE.create({
+    //   data: {
+    //     dbid: res2?.dbid,
+    //   },
+    // });
+
+    // console.log(buyJeCreate);
   }
+
+  const user = await prisma.timisgod.create({
+    data: {
+      Asset: "Alice",
+    },
+  });
+  console.log(user);
+
+  ////----end of main function--------------------
 }
+
 main()
   .catch((e) => {
     console.error(e);
