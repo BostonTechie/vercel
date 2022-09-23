@@ -1,9 +1,7 @@
 {
   "private": true,
   "sideEffects": false,
-  "prisma": {
-    "seed": "ts-node prisma/calcAccounting.ts"
-  },
+
   "scripts": {
     "build": "remix build",
     "build:css": "tailwindcss -m -i ./styles/tailwind.css -o app/styles/tailwind.css",

@@ -3,62 +3,82 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("i am on");
+  // this section works...........
+  // const review = await prisma.accountingJE.create({
+  //   data: {
+  //     Asset: "Dec",
+  //     hive: {
+  //       connect: {
+  //         id: 1,
+  //       },
+  //     },
+  //   },
+  // });
 
-  const review = await prisma.accountingJE.create({
-    data: {
-      Asset: "Dec",
-      hive: {
-        connect: {
-          id: 7,
-        },
-      },
+  // this section works...........
+
+  const resAllBuys = await prisma.hive.findMany({
+    where: { Transaction_Type: "PRODUCER_REWARD" },
+    select: {
+      id: true,
     },
   });
-  // const resAllBuys = await prisma.hive.findMany({
-  //   where: { Transaction_Type: "BUY" },
-  //   select: {
-  //     dbid: true,
-  //   },
-  //   take: 3,
-  // });
-  // for (const element of resAllBuys) {
-  //   const res2 = await prisma.hive.findUnique({
-  //     where: {
-  //       dbid: element.dbid,
-  //     },
-  //     select: {
-  //       dbid: true,
-  //       Asset_Type: true,
-  //       Asset: true,
-  //       From: true,
-  //       To: true,
-  //       Quantity: true,
-  //       Basis_Date: true,
-  //       Proceed_Date: true,
-  //       Token_Price: true,
-  //       Gross_Proceed: true,
-  //       Cost_of_Basis: true,
-  //       Net: true,
-  //       Transaction_Type: true,
-  //     },
-  //   });
-  //   console.log(res2?.dbid, res2?.Asset);
-  //   let dHash = res2?.dbid;
-  //   let aHash = res2?.Asset;
-  //   // const buyJeCreate = await prisma.accountingJE.create({
-  //   //   data: {
-  //   //     dbid: res2?.dbid,
-  //   //   },
-  //   // });
-  //   // console.log(buyJeCreate);
-  // }
-  // const user = await prisma.timisgod.create({
-  //   data: {
-  //     Asset: "Alice",
-  //   },
-  // });
-  // console.log(user);
+  for (const element of resAllBuys) {
+    const res2 = await prisma.hive.findUnique({
+      where: {
+        id: element.id,
+      },
+      select: {
+        id: true,
+        Asset_Type: true,
+        Asset: true,
+        From: true,
+        To: true,
+        Quantity: true,
+        Basis_Date: true,
+        Proceed_Date: true,
+        Token_Price: true,
+        Gross_Proceed: true,
+        Cost_of_Basis: true,
+        Net: true,
+        Transaction_Type: true,
+      },
+    });
+
+    const createAllBuysDebit = await prisma.accountingJE.create({
+      data: {
+        Wallet: res2?.From,
+        Asset: res2?.Asset,
+        Proceed_Date: res2?.Proceed_Date,
+        Ledger: `Producer-Reward-Asset`,
+        Debit: res2?.Gross_Proceed,
+
+        hive: {
+          connect: {
+            id: res2?.id,
+          },
+        },
+      },
+    });
+
+    const createAllBuysCredit = await prisma.accountingJE.create({
+      data: {
+        Wallet: res2?.From,
+        Asset: res2?.Asset,
+        Proceed_Date: res2?.Proceed_Date,
+        Ledger: `Deferred-Producer-Reward-Liability`,
+        Credit: res2?.Gross_Proceed,
+
+        hive: {
+          connect: {
+            id: res2?.id,
+          },
+        },
+      },
+    });
+    ////end of the buy loop
+  }
+
   ////----end of main function--------------------
 }
 

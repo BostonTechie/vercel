@@ -18,7 +18,7 @@ model User {
 }
 
 model Hive {
-  id               Int            @id @default(autoincrement())
+  id               Int            @id @unique @default(autoincrement())
   Asset_Type       String?        @map("Asset Type")
   Asset            String?
   From             String?
@@ -35,12 +35,18 @@ model Hive {
   Block            Int?
   Transaction_ID   String?        @map("Transaction ID")
   Note             String?
+  Ownership        String?        @map("Ownership Type")
   accountingJE     accountingJE[]
 }
 
 model accountingJE {
-  id         Int    @id @default(autoincrement())
-  Asset      String
-  CryptoDBid Int
-  hive       Hive   @relation(fields: [CryptoDBid], references: [id])
+  id           Int       @id @unique @default(autoincrement())
+  Wallet       String?
+  Asset        String?
+  Proceed_Date DateTime?
+  Ledger       String?
+  Debit        Float?    @db.Real
+  Credit       Float?    @db.Real
+  CryptoDBid   Int
+  hive         Hive      @relation(fields: [CryptoDBid], references: [id])
 }
