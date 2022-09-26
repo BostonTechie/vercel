@@ -51,8 +51,8 @@ model accountingJE {
   Ledger_Type1 String?
   Ledger_Type2 String?
   Ledger_Name  String?
-  Debit        Float?    @db.Real
-  Credit       Float?    @db.Real
+  Debit        Float?    @default(0) @db.Real
+  Credit       Float?    @default(0) @db.Real
   CryptoDBid   Int
   hive         Hive      @relation(fields: [CryptoDBid], references: [id])
 }

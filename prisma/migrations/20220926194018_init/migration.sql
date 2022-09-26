@@ -48,8 +48,8 @@ CREATE TABLE "accountingJE" (
     "Ledger_Type1" TEXT,
     "Ledger_Type2" TEXT,
     "Ledger_Name" TEXT,
-    "Debit" REAL,
-    "Credit" REAL,
+    "Debit" REAL DEFAULT 0,
+    "Credit" REAL DEFAULT 0,
     "CryptoDBid" INTEGER NOT NULL,
 
     CONSTRAINT "accountingJE_pkey" PRIMARY KEY ("id")
