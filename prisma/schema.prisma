@@ -1,5 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 generator client {
   provider = "prisma-client-js"
 }
@@ -25,8 +23,8 @@ model Hive {
   Account          String?
   Counterparty     String?
   Quantity         Float?         @db.Real
-  Basis_Date       String?        @map("Basis Date")
-  Proceed_Date     String?        @map("Proceed Date")
+  Basis_Date       DateTime?      @map("Basis Date")
+  Proceed_Date     DateTime?      @map("Proceed Date")
   Token_Price      Float?         @map("Token Price") @db.Real
   Gross_Proceed    Float?         @map("Gross Proceed") @db.Real
   Total_Price      Float?         @map("Total Price") @db.Real
@@ -46,7 +44,7 @@ model Hive {
 
 model accountingJE {
   id           Int       @id @unique @default(autoincrement())
-  Ownership    String?
+  Entity       String?
   Wallet       String?
   Asset        String?
   Proceed_Date DateTime?

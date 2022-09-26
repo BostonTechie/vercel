@@ -18,8 +18,8 @@ CREATE TABLE "Hive" (
     "Account" TEXT,
     "Counterparty" TEXT,
     "Quantity" REAL,
-    "Basis Date" TEXT,
-    "Proceed Date" TEXT,
+    "Basis Date" TIMESTAMP(3),
+    "Proceed Date" TIMESTAMP(3),
     "Token Price" REAL,
     "Gross Proceed" REAL,
     "Total Price" REAL,
@@ -41,7 +41,7 @@ CREATE TABLE "Hive" (
 -- CreateTable
 CREATE TABLE "accountingJE" (
     "id" SERIAL NOT NULL,
-    "Ownership" TEXT,
+    "Entity" TEXT,
     "Wallet" TEXT,
     "Asset" TEXT,
     "Proceed_Date" TIMESTAMP(3),
