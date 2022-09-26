@@ -41,10 +41,13 @@ CREATE TABLE "Hive" (
 -- CreateTable
 CREATE TABLE "accountingJE" (
     "id" SERIAL NOT NULL,
+    "Ownership" TEXT,
     "Wallet" TEXT,
     "Asset" TEXT,
     "Proceed_Date" TIMESTAMP(3),
-    "Ledger" TEXT,
+    "Ledger_Type1" TEXT,
+    "Ledger_Type2" TEXT,
+    "Ledger_Name" TEXT,
     "Debit" REAL,
     "Credit" REAL,
     "CryptoDBid" INTEGER NOT NULL,

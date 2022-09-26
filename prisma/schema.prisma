@@ -46,10 +46,13 @@ model Hive {
 
 model accountingJE {
   id           Int       @id @unique @default(autoincrement())
+  Ownership    String?
   Wallet       String?
   Asset        String?
   Proceed_Date DateTime?
-  Ledger       String?
+  Ledger_Type1 String?
+  Ledger_Type2 String?
+  Ledger_Name  String?
   Debit        Float?    @db.Real
   Credit       Float?    @db.Real
   CryptoDBid   Int

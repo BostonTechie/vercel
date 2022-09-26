@@ -18,10 +18,11 @@ async function main() {
   // this section works...........
 
   const resAllBuys = await prisma.hive.findMany({
-    where: { Transaction_Type: "PRODUCER_REWARD" },
+    where: { Transaction_Type: "AIRDROP_STAKE" },
     select: {
       id: true,
     },
+    take: 2,
   });
   for (const element of resAllBuys) {
     const res2 = await prisma.hive.findUnique({
@@ -32,8 +33,8 @@ async function main() {
         id: true,
         Asset_Type: true,
         Asset: true,
-        From: true,
-        To: true,
+        Account: true,
+        Counterparty: true,
         Quantity: true,
         Basis_Date: true,
         Proceed_Date: true,
@@ -42,6 +43,7 @@ async function main() {
         Cost_of_Basis: true,
         Net: true,
         Transaction_Type: true,
+        Ownership: true,
       },
     });
 
