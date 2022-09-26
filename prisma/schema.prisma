@@ -19,15 +19,19 @@ model User {
 
 model Hive {
   id               Int            @id @unique @default(autoincrement())
+  Report_Type      String?        @map("Report Type")
   Asset_Type       String?        @map("Asset Type")
   Asset            String?
-  From             String?
-  To               String?
+  Account          String?
+  Counterparty     String?
   Quantity         Float?         @db.Real
-  Basis_Date       DateTime?      @map("Basis Date") @db.Date
-  Proceed_Date     DateTime?      @map("Proceed Date") @db.Date
+  Basis_Date       String?        @map("Basis Date")
+  Proceed_Date     String?        @map("Proceed Date")
   Token_Price      Float?         @map("Token Price") @db.Real
   Gross_Proceed    Float?         @map("Gross Proceed") @db.Real
+  Total_Price      Float?         @map("Total Price") @db.Real
+  Price_Symbol     String?        @map("Price Symbol")
+  Basis_Price      Float?         @map("Basis Price") @db.Real
   Cost_of_Basis    Float?         @map("Cost of Basis") @db.Real
   Net              Float?         @db.Real
   Transaction_Type String?        @map("Transaction Type")
@@ -36,6 +40,7 @@ model Hive {
   Transaction_ID   String?        @map("Transaction ID")
   Note             String?
   Ownership        String?        @map("Ownership Type")
+  Index            Int?
   accountingJE     accountingJE[]
 }
 

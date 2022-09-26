@@ -12,15 +12,19 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Hive" (
     "id" SERIAL NOT NULL,
+    "Report Type" TEXT,
     "Asset Type" TEXT,
     "Asset" TEXT,
-    "From" TEXT,
-    "To" TEXT,
+    "Account" TEXT,
+    "Counterparty" TEXT,
     "Quantity" REAL,
-    "Basis Date" DATE,
-    "Proceed Date" DATE,
+    "Basis Date" TEXT,
+    "Proceed Date" TEXT,
     "Token Price" REAL,
     "Gross Proceed" REAL,
+    "Total Price" REAL,
+    "Price Symbol" TEXT,
+    "Basis Price" REAL,
     "Cost of Basis" REAL,
     "Net" REAL,
     "Transaction Type" TEXT,
@@ -28,6 +32,8 @@ CREATE TABLE "Hive" (
     "Block" INTEGER,
     "Transaction ID" TEXT,
     "Note" TEXT,
+    "Ownership Type" TEXT,
+    "Index" INTEGER,
 
     CONSTRAINT "Hive_pkey" PRIMARY KEY ("id")
 );
