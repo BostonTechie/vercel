@@ -1,11 +1,14 @@
 {
   "private": true,
   "sideEffects": false,
+
   "scripts": {
     "build": "remix build",
     "build:css": "tailwindcss -m -i ./styles/tailwind.css -o app/styles/tailwind.css",
     "dev": "concurrently \"npm run dev:css\" \"remix dev\"",
-    "dev:css": "tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css -w"
+    "dev:css": "tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css -w",
+    "calcaccounting": "nodemon calcAccounting.ts",
+    "ledger": "nodemon ledger.ts"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
@@ -31,6 +34,7 @@
     "eslint": "^8.20.0",
     "postcss": "^8.4.16",
     "prisma": "^4.2.1",
+    
     "tailwindcss": "^3.1.8",
     "typescript": "^4.7.4"
   },

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,21 +16,69 @@ model User {
 }
 
 model Hive {
-  dbid             Int       @id @default(autoincrement())
-  Asset_Type       String?   @map("Asset Type")
+  id               Int            @id @unique @default(autoincrement())
+  Report_Type      String?        @map("Report Type")
+  Asset_Type       String?        @map("Asset Type")
   Asset            String?
-  From             String?
-  To               String?
-  Quantity         Float?    @db.Real
-  Basis_Date       DateTime? @map("Basis Date") @db.Date
-  Proceed_Date     DateTime? @map("Proceed Date") @db.Date
-  Token_Price      Float?    @map("Token Price") @db.Real
-  Gross_Proceed    Float?    @map("Gross Proceed") @db.Real
-  Cost_of_Basis    Float?    @map("Cost of Basis") @db.Real
-  Net              Float?    @db.Real
-  Transaction_Type String?   @map("Transaction Type")
+  Account          String?
+  Counterparty     String?        @default("")
+  Quantity         Float?         @db.Real
+  Basis_Date       DateTime?      @map("Basis Date")
+  Proceed_Date     DateTime?      @map("Proceed Date")
+  Token_Price      Float?         @map("Token Price") @db.Real
+  Gross_Proceed    Float?         @map("Gross Proceed") @db.Real
+  Total_Price      Float?         @map("Total Price") @db.Real
+  Price_Symbol     String?        @map("Price Symbol")
+  Basis_Price      Float?         @map("Basis Price") @db.Real
+  Cost_of_Basis    Float?         @map("Cost of Basis") @db.Real
+  Net              Float?         @db.Real
+  Transaction_Type String?        @map("Transaction Type")
   Duration         String?
   Block            Int?
-  Transaction_ID   String?   @map("Transaction ID")
+  Transaction_ID   String?        @map("Transaction ID")
   Note             String?
+  Ownership        String?        @map("Ownership Type")
+  Index            Int?
+  accountingJE     AccountingJE[]
+}
+
+model AccountingJE {
+  id           Int       @id @unique @default(autoincrement())
+  Entity       String?
+  Wallet       String?
+  Asset        String?
+  Proceed_Date DateTime?
+  Ledger_Type1 String?
+  Ledger_Type2 String?
+  Ledger_Name  String?
+  Debit        Float?    @default(0) @db.Real
+  Credit       Float?    @default(0) @db.Real
+  CryptoDBid   Int
+  hive         Hive      @relation(fields: [CryptoDBid], references: [id])
+}
+
+model Ledger {
+  id               Int      @id @unique @default(autoincrement())
+  Transaction_Type String?  @map("Transaction Type")
+  Dledger          DLedger?
+  DLedger_SType    String?  @default("Liquid")
+  Cledger          CLedger?
+  CLedger_SType    String?  @default("Deferred Revenue")
+  Realized         Boolean? @default(false)
+}
+
+enum DLedger {
+  Asset
+  Liability
+  Equity
+  Revenue
+  Expense
+}
+
+enum CLedger {
+  Asset
+  Liability
+  Equity
+  Revenue
+  Expense
 }
