@@ -51,7 +51,7 @@ CREATE TABLE "AccountingJE" (
     "Wallet" TEXT,
     "Asset" TEXT,
     "Proceed_Date" TIMESTAMP(3),
-    "Ledger_Type1" "DLedger",
+    "Ledger_Type1" TEXT,
     "Ledger_Type2" TEXT,
     "Ledger_Name" TEXT,
     "Debit" REAL DEFAULT 0,

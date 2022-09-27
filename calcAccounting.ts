@@ -48,7 +48,7 @@ async function main() {
           Ledger_Type1: findAllJeCoding[0].Dledger,
           Ledger_Type2: findAllJeCoding[0].DLedger_SType,
           Ledger_Name: element1.Transaction_Type,
-          Credit: element1?.Gross_Proceed,
+          Debit: element1?.Gross_Proceed,
           hive: {
             connect: {
               id: element1?.id,
@@ -60,7 +60,7 @@ async function main() {
       const createAllCredit = await prisma.accountingJE.create({
         data: {
           Entity: element1?.Ownership,
-          Wallet: element1?.Counterparty,
+          Wallet: element1?.Account,
           Asset: element1?.Asset,
           Proceed_Date: element1?.Proceed_Date,
           Ledger_Type1: findAllJeCoding[0].Cledger,
