@@ -1,3 +1,9 @@
+-- CreateEnum
+CREATE TYPE "DLedger" AS ENUM ('Asset', 'Liability', 'Equity', 'Revenue', 'Expense');
+
+-- CreateEnum
+CREATE TYPE "CLedger" AS ENUM ('Asset', 'Liability', 'Equity', 'Revenue', 'Expense');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -39,7 +45,7 @@ CREATE TABLE "Hive" (
 );
 
 -- CreateTable
-CREATE TABLE "accountingJE" (
+CREATE TABLE "AccountingJE" (
     "id" SERIAL NOT NULL,
     "Entity" TEXT,
     "Wallet" TEXT,
@@ -52,17 +58,18 @@ CREATE TABLE "accountingJE" (
     "Credit" REAL DEFAULT 0,
     "CryptoDBid" INTEGER NOT NULL,
 
-    CONSTRAINT "accountingJE_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "AccountingJE_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Ledger" (
     "id" SERIAL NOT NULL,
     "Transaction Type" TEXT,
-    "Ledger_Type1" TEXT,
-    "Ledger_Type2" TEXT,
-    "Ledger_Name" TEXT,
-    "Realized" BOOLEAN,
+    "Dledger" "DLedger",
+    "DLedger_SType" TEXT DEFAULT 'Liquid',
+    "Cledger" "CLedger",
+    "CLedger_SType" TEXT DEFAULT 'Deferred Revenue',
+    "Realized" BOOLEAN DEFAULT false,
 
     CONSTRAINT "Ledger_pkey" PRIMARY KEY ("id")
 );
@@ -74,10 +81,10 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Hive_id_key" ON "Hive"("id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "accountingJE_id_key" ON "accountingJE"("id");
+CREATE UNIQUE INDEX "AccountingJE_id_key" ON "AccountingJE"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Ledger_id_key" ON "Ledger"("id");
 
 -- AddForeignKey
-ALTER TABLE "accountingJE" ADD CONSTRAINT "accountingJE_CryptoDBid_fkey" FOREIGN KEY ("CryptoDBid") REFERENCES "Hive"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "AccountingJE" ADD CONSTRAINT "AccountingJE_CryptoDBid_fkey" FOREIGN KEY ("CryptoDBid") REFERENCES "Hive"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

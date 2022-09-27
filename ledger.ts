@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function ledger() {
-  ////----airdrop _ stake--------------------
+  ////----this script creates a table of unique transaction type that can be used to to the coding for accounting
 
   const resTransTypes = await prisma.hive.findMany({
     distinct: ["Transaction_Type"],
@@ -12,23 +12,14 @@ async function ledger() {
     },
   });
 
-  let i = 0;
   for (const element of resTransTypes) {
     let response = element.Transaction_Type;
 
-    const ledgerCoding = prisma.ledger.create({
+    const ledgerCoding = await prisma.ledger.create({
       data: {
-        id: 1,
-        Transaction_Type: "response",
-        Ledger_Type1: "hi",
-        Ledger_Type2: "hi",
-        Ledger_Name: "hi",
-        Realized: true,
+        Transaction_Type: element.Transaction_Type,
       },
     });
-
-    i++;
-    console.log(response, i);
   }
 }
 

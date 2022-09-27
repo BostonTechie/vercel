@@ -60,11 +60,25 @@ model AccountingJE {
 model Ledger {
   id               Int      @id @unique @default(autoincrement())
   Transaction_Type String?  @map("Transaction Type")
-  DLedger_Type1    String?
-  DLedger_Type2    String?
-  DLedger_Name     String?
-  CLedger_Type1    String?
-  CLedger_Type2    String?
-  CLedger_Name     String?
-  Realized         Boolean?
+  Dledger          DLedger?
+  DLedger_SType    String?  @default("Liquid")
+  Cledger          CLedger?
+  CLedger_SType    String?  @default("Deferred Revenue")
+  Realized         Boolean? @default(false)
+}
+
+enum DLedger {
+  Asset
+  Liability
+  Equity
+  Revenue
+  Expense
+}
+
+enum CLedger {
+  Asset
+  Liability
+  Equity
+  Revenue
+  Expense
 }
