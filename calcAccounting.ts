@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { DLedger, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -21,25 +21,63 @@ async function main() {
       distinct: ["id"],
       select: {
         id: true,
+        Ownership: true,
+        Asset_Type: true,
+        Asset: true,
+        Account: true,
+        Counterparty: true,
+        Proceed_Date: true,
+        Token_Price: true,
+        Gross_Proceed: true,
+        Cost_of_Basis: true,
+        Net: true,
+        Transaction_Type: true,
       },
       where: {
         Transaction_Type: element?.Transaction_Type,
       },
     });
-    console.log(
-      "length ",
-      findTransactionsTypeForThisLoop.length,
-      element.Transaction_Type,
-      " ids ",
-      findTransactionsTypeForThisLoop
-    );
 
     for (const element1 of findTransactionsTypeForThisLoop) {
-      console.log("hi");
-    }
-  }
+      const createAllDebit = await prisma.accountingJE.create({
+        data: {
+          Entity: element1?.Ownership,
+          Wallet: element1?.Account,
+          Asset: element1?.Asset,
+          Proceed_Date: element1?.Proceed_Date,
+          Ledger_Type1: findAllJeCoding[0].Dledger,
+          Ledger_Type2: findAllJeCoding[0].DLedger_SType,
+          Ledger_Name: element1.Transaction_Type,
+          Credit: element1?.Gross_Proceed,
+          hive: {
+            connect: {
+              id: element1?.id,
+            },
+          },
+        },
+      });
 
-  ////----end of main function---------------------------------------
+      const createAllCredit = await prisma.accountingJE.create({
+        data: {
+          Entity: element1?.Ownership,
+          Wallet: element1?.Counterparty,
+          Asset: element1?.Asset,
+          Proceed_Date: element1?.Proceed_Date,
+          Ledger_Type1: findAllJeCoding[0].Cledger,
+          Ledger_Type2: findAllJeCoding[0].CLedger_SType,
+          Ledger_Name: element1.Transaction_Type,
+          Credit: element1?.Gross_Proceed,
+          hive: {
+            connect: {
+              id: element1?.id,
+            },
+          },
+        },
+      });
+    }
+
+    ////----end of main function---------------------------------------
+  }
 }
 
 main()
