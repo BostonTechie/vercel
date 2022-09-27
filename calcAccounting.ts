@@ -1,6 +1,7 @@
 import { DLedger, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
+let i = 0;
 
 async function main() {
   //find all the coding needed for every transaction type from the ledger table to apply it to the Accounting JE table
@@ -45,8 +46,8 @@ async function main() {
           Wallet: element1?.Account,
           Asset: element1?.Asset,
           Proceed_Date: element1?.Proceed_Date,
-          Ledger_Type1: findAllJeCoding[0].Dledger,
-          Ledger_Type2: findAllJeCoding[0].DLedger_SType,
+          Ledger_Type1: findAllJeCoding[i].Dledger,
+          Ledger_Type2: findAllJeCoding[i].DLedger_SType,
           Ledger_Name: element1.Transaction_Type,
           Debit: element1?.Gross_Proceed,
           hive: {
@@ -63,8 +64,8 @@ async function main() {
           Wallet: element1?.Account,
           Asset: element1?.Asset,
           Proceed_Date: element1?.Proceed_Date,
-          Ledger_Type1: findAllJeCoding[0].Cledger,
-          Ledger_Type2: findAllJeCoding[0].CLedger_SType,
+          Ledger_Type1: findAllJeCoding[i].Cledger,
+          Ledger_Type2: findAllJeCoding[i].CLedger_SType,
           Ledger_Name: element1.Transaction_Type,
           Credit: element1?.Gross_Proceed,
           hive: {
@@ -76,8 +77,10 @@ async function main() {
       });
     }
 
-    ////----end of main function---------------------------------------
+    i++;
   }
+
+  ////----end of main function---------------------------------------
 }
 
 main()
