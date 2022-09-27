@@ -32,7 +32,7 @@ CREATE TABLE "Hive" (
     "Price Symbol" TEXT,
     "Basis Price" REAL,
     "Cost of Basis" REAL,
-    "Net" REAL,
+    "Net" REAL DEFAULT 0,
     "Transaction Type" TEXT,
     "Duration" TEXT,
     "Block" INTEGER,

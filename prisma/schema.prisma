@@ -31,7 +31,7 @@ model Hive {
   Price_Symbol     String?        @map("Price Symbol")
   Basis_Price      Float?         @map("Basis Price") @db.Real
   Cost_of_Basis    Float?         @map("Cost of Basis") @db.Real
-  Net              Float?         @db.Real
+  Net              Float?         @default(0) @db.Real
   Transaction_Type String?        @map("Transaction Type")
   Duration         String?
   Block            Int?
