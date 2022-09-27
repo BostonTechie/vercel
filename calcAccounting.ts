@@ -27,9 +27,16 @@ async function main() {
       },
     });
     console.log(
+      "length ",
       findTransactionsTypeForThisLoop.length,
-      element.Transaction_Type
+      element.Transaction_Type,
+      " ids ",
+      findTransactionsTypeForThisLoop
     );
+
+    for (const element1 of findTransactionsTypeForThisLoop) {
+      console.log("hi");
+    }
   }
 
   ////----end of main function---------------------------------------
