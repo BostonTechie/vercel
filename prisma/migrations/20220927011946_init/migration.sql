@@ -55,6 +55,18 @@ CREATE TABLE "accountingJE" (
     CONSTRAINT "accountingJE_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Ledger" (
+    "id" SERIAL NOT NULL,
+    "Transaction Type" TEXT,
+    "Ledger_Type1" TEXT,
+    "Ledger_Type2" TEXT,
+    "Ledger_Name" TEXT,
+    "Realized" BOOLEAN,
+
+    CONSTRAINT "Ledger_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
@@ -63,6 +75,9 @@ CREATE UNIQUE INDEX "Hive_id_key" ON "Hive"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "accountingJE_id_key" ON "accountingJE"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Ledger_id_key" ON "Ledger"("id");
 
 -- AddForeignKey
 ALTER TABLE "accountingJE" ADD CONSTRAINT "accountingJE_CryptoDBid_fkey" FOREIGN KEY ("CryptoDBid") REFERENCES "Hive"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

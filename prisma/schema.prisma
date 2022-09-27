@@ -39,10 +39,10 @@ model Hive {
   Note             String?
   Ownership        String?        @map("Ownership Type")
   Index            Int?
-  accountingJE     accountingJE[]
+  accountingJE     AccountingJE[]
 }
 
-model accountingJE {
+model AccountingJE {
   id           Int       @id @unique @default(autoincrement())
   Entity       String?
   Wallet       String?
@@ -55,4 +55,16 @@ model accountingJE {
   Credit       Float?    @default(0) @db.Real
   CryptoDBid   Int
   hive         Hive      @relation(fields: [CryptoDBid], references: [id])
+}
+
+model Ledger {
+  id               Int      @id @unique @default(autoincrement())
+  Transaction_Type String?  @map("Transaction Type")
+  DLedger_Type1    String?
+  DLedger_Type2    String?
+  DLedger_Name     String?
+  CLedger_Type1    String?
+  CLedger_Type2    String?
+  CLedger_Name     String?
+  Realized         Boolean?
 }
