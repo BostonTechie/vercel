@@ -17,18 +17,19 @@ async function main() {
       Cledger: true,
       CLedger_SType: true,
       Realized: true,
+      Sale: true,
     },
   });
 
   //the below for loop finds all the transactions that match the  transaction type (see the where clause)note all the tranaction types must exist in the legder table before this script will run correctly
-  for (const element of findAllJeCoding) {
+  for (const elementJeCodling of findAllJeCoding) {
     /* "i" (below) will pull the coding from the ledger table which should be equal to where the loop is in the array minus 1 (arrays start at zero)*/
 
-    let ledgeri = element?.id - 1;
+    let ledgeri = elementJeCodling?.id - 1;
 
     //if the transaction type returns a true for the realized field that indicates realized needs to be calculated so the script will run the following script
 
-    if (element.Realized) {
+    if (elementJeCodling.Realized) {
       const findTransactionsTypeForThisLoop = await prisma.hive.findMany({
         distinct: ["id"],
         select: {
@@ -47,28 +48,47 @@ async function main() {
           Transaction_Type: true,
         },
         where: {
-          Transaction_Type: element?.Transaction_Type,
+          Transaction_Type: elementJeCodling?.Transaction_Type,
         },
       });
 
-      for (const createJEline of findTransactionsTypeForThisLoop) {
-        /*   With hive inherantly some transaction types signify different things, an important example of this is "Sell" versus "Buy" transactions.  In the case of "Buy"  the token in the "Asset" column is the asset in question being purchase, which would be a Debit in accounting.  In "Sell: Transactions the "Asset" column denotes the asset being sold which would be a Credit.  The logic below handles that fundamental difference*/
+      for (const createJELineElement of findTransactionsTypeForThisLoop) {
+        if (elementJeCodling.Sale === "Sale") {
+          /*   With hive inherantly some transaction types signify different things, an important example of this is "Sell" versus "Buy" transactions.  In the case of "Buy"  the token in the "Asset" column is the asset in question being purchase, which would be a Debit in accounting.  In "Sell: Transactions the "Asset" column denotes the asset being sold which would be a Credit.  The logic below handles that fundamental difference*/
 
-        if 
+          let storeString = createJELineElement?.Price_Symbol;
+          let storeString2 = createJELineElement?.Asset;
+
+          createJELineElement.Asset = storeString;
+          createJELineElement.Price_Symbol = storeString2;
+
+          console.log(createJELineElement.Asset, createJELineElement.id);
+        }
+        if (elementJeCodling.Sale === "Buy") {
+          /*   With hive inherantly some transaction types signify different things, an important example of this is "Sell" versus "Buy" transactions.  In the case of "Buy"  the token in the "Asset" column is the asset in question being purchase, which would be a Debit in accounting.  In "Sell: Transactions the "Asset" column denotes the asset being sold which would be a Credit.  The logic below handles that fundamental difference*/
+
+          let storeString = createJELineElement?.Price_Symbol;
+          let storeString2 = createJELineElement?.Asset;
+
+          createJELineElement.Asset = storeString2;
+          createJELineElement.Price_Symbol = storeString;
+
+          console.log(createJELineElement.Asset, createJELineElement.id);
+        }
 
         const createAllDebit = await prisma.accountingJE.create({
           data: {
-            Entity: createJEline?.Ownership,
-            Wallet: createJEline?.Account,
-            Asset: createJEline?.Asset,
-            Proceed_Date: createJEline?.Proceed_Date,
+            Entity: createJELineElement?.Ownership,
+            Wallet: createJELineElement?.Account,
+            Asset: createJELineElement.Asset,
+            Proceed_Date: createJELineElement?.Proceed_Date,
             Ledger_Type1: findAllJeCoding[ledgeri].Dledger,
             Ledger_Type2: findAllJeCoding[ledgeri].DLedger_SType,
-            Ledger_Name: createJEline.Transaction_Type,
-            Debit: createJEline?.Gross_Proceed,
+            Ledger_Name: createJELineElement.Transaction_Type,
+            Debit: createJELineElement?.Gross_Proceed,
             hive: {
               connect: {
-                id: createJEline?.id,
+                id: createJELineElement?.id,
               },
             },
           },
@@ -76,40 +96,40 @@ async function main() {
 
         const createAllCredit = await prisma.accountingJE.create({
           data: {
-            Entity: createJEline?.Ownership,
-            Wallet: createJEline?.Account,
-            Asset: createJEline?.Price_Symbol,
-            Proceed_Date: createJEline?.Proceed_Date,
+            Entity: createJELineElement?.Ownership,
+            Wallet: createJELineElement?.Account,
+            Asset: createJELineElement.Price_Symbol,
+            Proceed_Date: createJELineElement?.Proceed_Date,
             Ledger_Type1: findAllJeCoding[ledgeri].Cledger,
             Ledger_Type2: findAllJeCoding[ledgeri].CLedger_SType,
-            Ledger_Name: createJEline.Transaction_Type,
-            Credit: createJEline?.Cost_of_Basis,
+            Ledger_Name: createJELineElement.Transaction_Type,
+            Credit: createJELineElement?.Cost_of_Basis,
             hive: {
               connect: {
-                id: createJEline?.id,
+                id: createJELineElement?.id,
               },
             },
           },
         });
 
-        if (createJEline.Net === null || createJEline.Net === 0) {
+        if (createJELineElement.Net === null || createJELineElement.Net === 0) {
           /* the if (above) estential does nothing in the case that net (realized gain/ loss) is equal to zero or null. In either case You wouldn't want a script to process a journal entry.  It may be useful to have a log of nulls though for debuging */
-        } else if (createJEline.Net <= 0) {
-          createJEline.Net = Math.abs(createJEline.Net);
+        } else if (createJELineElement.Net <= 0) {
+          createJELineElement.Net = Math.abs(createJELineElement.Net);
 
           const createAllDRealized = await prisma.accountingJE.create({
             data: {
-              Entity: createJEline?.Ownership,
-              Wallet: createJEline?.Account,
-              Asset: createJEline?.Asset,
-              Proceed_Date: createJEline?.Proceed_Date,
+              Entity: createJELineElement?.Ownership,
+              Wallet: createJELineElement?.Price_Symbol,
+              Asset: createJELineElement.Price_Symbol,
+              Proceed_Date: createJELineElement?.Proceed_Date,
               Ledger_Type1: "OCI",
               Ledger_Type2: "Realized (Gains)/Loss",
-              Ledger_Name: createJEline.Transaction_Type,
-              Debit: createJEline.Net,
+              Ledger_Name: createJELineElement.Transaction_Type,
+              Debit: createJELineElement.Net,
               hive: {
                 connect: {
-                  id: createJEline?.id,
+                  id: createJELineElement?.id,
                 },
               },
             },
@@ -117,17 +137,17 @@ async function main() {
         } else {
           const createAllCRealized = await prisma.accountingJE.create({
             data: {
-              Entity: createJEline?.Ownership,
-              Wallet: createJEline?.Account,
-              Asset: createJEline?.Asset,
-              Proceed_Date: createJEline?.Proceed_Date,
+              Entity: createJELineElement?.Ownership,
+              Wallet: createJELineElement?.Account,
+              Asset: createJELineElement?.Asset,
+              Proceed_Date: createJELineElement?.Proceed_Date,
               Ledger_Type1: "Revenue",
               Ledger_Type2: "Realized (Gains)/Loss",
-              Ledger_Name: createJEline.Transaction_Type,
-              Credit: createJEline.Net,
+              Ledger_Name: createJELineElement.Transaction_Type,
+              Credit: createJELineElement.Net,
               hive: {
                 connect: {
-                  id: createJEline?.id,
+                  id: createJELineElement?.id,
                 },
               },
             },
@@ -137,7 +157,7 @@ async function main() {
     }
 
     // if you want to see your script running on a larger data set
-    // console.log(element.Transaction_Type, " process completed");
+    // console.log(elementJeCodling.Transaction_Type, " process completed");
   }
 }
 
