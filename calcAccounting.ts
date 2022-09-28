@@ -6,6 +6,8 @@ let i = 0;
 async function main() {
   //find all the coding needed for every transaction type from the ledger table to apply it to the Accounting JE table
 
+  //might need a buy and a sell "type" on ledger table to better handle the in's vs outs for asset types
+
   const findAllJeCoding = await prisma.ledger.findMany({
     where: {},
     select: {
@@ -50,6 +52,7 @@ async function main() {
         //pull the coding from the ledger table which should be equal to where the loop is in the array minus 1
 
         i = element?.id - 1;
+
         const createAllDebit = await prisma.accountingJE.create({
           data: {
             Entity: element1?.Ownership,
@@ -67,7 +70,7 @@ async function main() {
             },
           },
         });
-        console.log(i);
+
         const createAllCredit = await prisma.accountingJE.create({
           data: {
             Entity: element1?.Ownership,
@@ -88,7 +91,7 @@ async function main() {
 
         if (element1.Net === null) {
           console.log("null");
-        } else if (element1.Net < 0) {
+        } else if (element1.Net <= 0) {
           element1.Net = Math.abs(element1.Net);
 
           const createAllDRealized = await prisma.accountingJE.create({
@@ -101,6 +104,24 @@ async function main() {
               Ledger_Type2: "Realized (Gains)/Loss",
               Ledger_Name: element1.Transaction_Type,
               Debit: element1.Net,
+              hive: {
+                connect: {
+                  id: element1?.id,
+                },
+              },
+            },
+          });
+        } else {
+          const createAllCRealized = await prisma.accountingJE.create({
+            data: {
+              Entity: element1?.Ownership,
+              Wallet: element1?.Account,
+              Asset: element1?.Asset,
+              Proceed_Date: element1?.Proceed_Date,
+              Ledger_Type1: "Revenue",
+              Ledger_Type2: "Realized (Gains)/Loss",
+              Ledger_Name: element1.Transaction_Type,
+              Credit: element1.Net,
               hive: {
                 connect: {
                   id: element1?.id,
