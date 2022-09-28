@@ -7,7 +7,7 @@
     "build:css": "tailwindcss -m -i ./styles/tailwind.css -o app/styles/tailwind.css",
     "dev": "concurrently \"npm run dev:css\" \"remix dev\"",
     "dev:css": "tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css -w",
-    "calcaccounting": "nodemon calcAccounting.ts",
+    "calcreal": "nodemon calcReal.ts",
     "ledger": "nodemon ledger.ts"
   },
   "dependencies": {

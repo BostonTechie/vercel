@@ -8,7 +8,7 @@ async function main() {
   //might need a buy and a sell "type" on ledger table to better handle the in's vs outs for asset types
 
   const findAllJeCoding = await prisma.ledger.findMany({
-    where: {},
+    where: { Realized: true },
     select: {
       id: true,
       Transaction_Type: true,
@@ -22,14 +22,17 @@ async function main() {
   });
 
   //the below for loop finds all the transactions that match the  transaction type (see the where clause)note all the tranaction types must exist in the legder table before this script will run correctly
-  for (const elementJeCodling of findAllJeCoding) {
+  for (const elementJeCoding of findAllJeCoding) {
     /* "i" (below) will pull the coding from the ledger table which should be equal to where the loop is in the array minus 1 (arrays start at zero)*/
 
-    let ledgeri = elementJeCodling?.id - 1;
+    let debitLedgerType = elementJeCoding.Dledger;
+    let creditLedgerType = elementJeCoding.Cledger;
+    let creditLedger = elementJeCoding.DLedger_SType;
+    let debitLedger = elementJeCoding.CLedger_SType;
 
     //if the transaction type returns a true for the realized field that indicates realized needs to be calculated so the script will run the following script
 
-    if (elementJeCodling.Realized) {
+    if (elementJeCoding.Realized) {
       const findTransactionsTypeForThisLoop = await prisma.hive.findMany({
         distinct: ["id"],
         select: {
@@ -48,12 +51,12 @@ async function main() {
           Transaction_Type: true,
         },
         where: {
-          Transaction_Type: elementJeCodling?.Transaction_Type,
+          Transaction_Type: elementJeCoding?.Transaction_Type,
         },
       });
 
       for (const createJELineElement of findTransactionsTypeForThisLoop) {
-        if (elementJeCodling.Sale === "Sale") {
+        if (elementJeCoding.Sale === "Sale") {
           /*   With hive inherantly some transaction types signify different things, an important example of this is "Sell" versus "Buy" transactions.  In the case of "Buy"  the token in the "Asset" column is the asset in question being purchase, which would be a Debit in accounting.  In "Sell: Transactions the "Asset" column denotes the asset being sold which would be a Credit.  The logic below handles that fundamental difference*/
 
           let storeString = createJELineElement?.Price_Symbol;
@@ -61,10 +64,8 @@ async function main() {
 
           createJELineElement.Asset = storeString;
           createJELineElement.Price_Symbol = storeString2;
-
-          console.log(createJELineElement.Asset, createJELineElement.id);
         }
-        if (elementJeCodling.Sale === "Buy") {
+        if (elementJeCoding.Sale === "Buy") {
           /*   With hive inherantly some transaction types signify different things, an important example of this is "Sell" versus "Buy" transactions.  In the case of "Buy"  the token in the "Asset" column is the asset in question being purchase, which would be a Debit in accounting.  In "Sell: Transactions the "Asset" column denotes the asset being sold which would be a Credit.  The logic below handles that fundamental difference*/
 
           let storeString = createJELineElement?.Price_Symbol;
@@ -72,8 +73,6 @@ async function main() {
 
           createJELineElement.Asset = storeString2;
           createJELineElement.Price_Symbol = storeString;
-
-          console.log(createJELineElement.Asset, createJELineElement.id);
         }
 
         const createAllDebit = await prisma.accountingJE.create({
@@ -82,8 +81,8 @@ async function main() {
             Wallet: createJELineElement?.Account,
             Asset: createJELineElement.Asset,
             Proceed_Date: createJELineElement?.Proceed_Date,
-            Ledger_Type1: findAllJeCoding[ledgeri].Dledger,
-            Ledger_Type2: findAllJeCoding[ledgeri].DLedger_SType,
+            Ledger_Type1: debitLedgerType,
+            Ledger_Type2: debitLedger,
             Ledger_Name: createJELineElement.Transaction_Type,
             Debit: createJELineElement?.Gross_Proceed,
             hive: {
@@ -100,8 +99,8 @@ async function main() {
             Wallet: createJELineElement?.Account,
             Asset: createJELineElement.Price_Symbol,
             Proceed_Date: createJELineElement?.Proceed_Date,
-            Ledger_Type1: findAllJeCoding[ledgeri].Cledger,
-            Ledger_Type2: findAllJeCoding[ledgeri].CLedger_SType,
+            Ledger_Type1: creditLedgerType,
+            Ledger_Type2: creditLedger,
             Ledger_Name: createJELineElement.Transaction_Type,
             Credit: createJELineElement?.Cost_of_Basis,
             hive: {
@@ -157,7 +156,7 @@ async function main() {
     }
 
     // if you want to see your script running on a larger data set
-    // console.log(elementJeCodling.Transaction_Type, " process completed");
+    console.log(elementJeCoding.Transaction_Type, " process completed");
   }
 }
 
