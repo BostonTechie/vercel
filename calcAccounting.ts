@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-let i = 0;
 
 async function main() {
   //find all the coding needed for every transaction type from the ledger table to apply it to the Accounting JE table
@@ -21,11 +20,15 @@ async function main() {
     },
   });
 
+  //the below for loop finds all the transactions that match the  transaction type (see the where clause)note all the tranaction types must exist in the legder table before this script will run correctly
   for (const element of findAllJeCoding) {
-    //if the transaction type returns a true i.e. realized needs to be calculate then run the following script
-    if (element.Realized) {
-      //find all the transactions that match the  transaction type (see the where clause)note all the tranaction types must exist in the legder table before this script will run correctly
+    /* "i" (below) will pull the coding from the ledger table which should be equal to where the loop is in the array minus 1 (arrays start at zero)*/
 
+    let ledgeri = element?.id - 1;
+
+    //if the transaction type returns a true for the realized field that indicates realized needs to be calculated so the script will run the following script
+
+    if (element.Realized) {
       const findTransactionsTypeForThisLoop = await prisma.hive.findMany({
         distinct: ["id"],
         select: {
@@ -48,24 +51,24 @@ async function main() {
         },
       });
 
-      for (const element1 of findTransactionsTypeForThisLoop) {
-        //pull the coding from the ledger table which should be equal to where the loop is in the array minus 1
+      for (const createJEline of findTransactionsTypeForThisLoop) {
+        /*   With hive inherantly some transaction types signify different things, an important example of this is "Sell" versus "Buy" transactions.  In the case of "Buy"  the token in the "Asset" column is the asset in question being purchase, which would be a Debit in accounting.  In "Sell: Transactions the "Asset" column denotes the asset being sold which would be a Credit.  The logic below handles that fundamental difference*/
 
-        i = element?.id - 1;
+        if 
 
         const createAllDebit = await prisma.accountingJE.create({
           data: {
-            Entity: element1?.Ownership,
-            Wallet: element1?.Account,
-            Asset: element1?.Asset,
-            Proceed_Date: element1?.Proceed_Date,
-            Ledger_Type1: findAllJeCoding[i].Dledger,
-            Ledger_Type2: findAllJeCoding[i].DLedger_SType,
-            Ledger_Name: element1.Transaction_Type,
-            Debit: element1?.Gross_Proceed,
+            Entity: createJEline?.Ownership,
+            Wallet: createJEline?.Account,
+            Asset: createJEline?.Asset,
+            Proceed_Date: createJEline?.Proceed_Date,
+            Ledger_Type1: findAllJeCoding[ledgeri].Dledger,
+            Ledger_Type2: findAllJeCoding[ledgeri].DLedger_SType,
+            Ledger_Name: createJEline.Transaction_Type,
+            Debit: createJEline?.Gross_Proceed,
             hive: {
               connect: {
-                id: element1?.id,
+                id: createJEline?.id,
               },
             },
           },
@@ -73,40 +76,40 @@ async function main() {
 
         const createAllCredit = await prisma.accountingJE.create({
           data: {
-            Entity: element1?.Ownership,
-            Wallet: element1?.Account,
-            Asset: element1?.Price_Symbol,
-            Proceed_Date: element1?.Proceed_Date,
-            Ledger_Type1: findAllJeCoding[i].Cledger,
-            Ledger_Type2: findAllJeCoding[i].CLedger_SType,
-            Ledger_Name: element1.Transaction_Type,
-            Credit: element1?.Cost_of_Basis,
+            Entity: createJEline?.Ownership,
+            Wallet: createJEline?.Account,
+            Asset: createJEline?.Price_Symbol,
+            Proceed_Date: createJEline?.Proceed_Date,
+            Ledger_Type1: findAllJeCoding[ledgeri].Cledger,
+            Ledger_Type2: findAllJeCoding[ledgeri].CLedger_SType,
+            Ledger_Name: createJEline.Transaction_Type,
+            Credit: createJEline?.Cost_of_Basis,
             hive: {
               connect: {
-                id: element1?.id,
+                id: createJEline?.id,
               },
             },
           },
         });
 
-        if (element1.Net === null) {
-          console.log("null");
-        } else if (element1.Net <= 0) {
-          element1.Net = Math.abs(element1.Net);
+        if (createJEline.Net === null || createJEline.Net === 0) {
+          /* the if (above) estential does nothing in the case that net (realized gain/ loss) is equal to zero or null. In either case You wouldn't want a script to process a journal entry.  It may be useful to have a log of nulls though for debuging */
+        } else if (createJEline.Net <= 0) {
+          createJEline.Net = Math.abs(createJEline.Net);
 
           const createAllDRealized = await prisma.accountingJE.create({
             data: {
-              Entity: element1?.Ownership,
-              Wallet: element1?.Account,
-              Asset: element1?.Asset,
-              Proceed_Date: element1?.Proceed_Date,
-              Ledger_Type1: "Revenue",
+              Entity: createJEline?.Ownership,
+              Wallet: createJEline?.Account,
+              Asset: createJEline?.Asset,
+              Proceed_Date: createJEline?.Proceed_Date,
+              Ledger_Type1: "OCI",
               Ledger_Type2: "Realized (Gains)/Loss",
-              Ledger_Name: element1.Transaction_Type,
-              Debit: element1.Net,
+              Ledger_Name: createJEline.Transaction_Type,
+              Debit: createJEline.Net,
               hive: {
                 connect: {
-                  id: element1?.id,
+                  id: createJEline?.id,
                 },
               },
             },
@@ -114,17 +117,17 @@ async function main() {
         } else {
           const createAllCRealized = await prisma.accountingJE.create({
             data: {
-              Entity: element1?.Ownership,
-              Wallet: element1?.Account,
-              Asset: element1?.Asset,
-              Proceed_Date: element1?.Proceed_Date,
+              Entity: createJEline?.Ownership,
+              Wallet: createJEline?.Account,
+              Asset: createJEline?.Asset,
+              Proceed_Date: createJEline?.Proceed_Date,
               Ledger_Type1: "Revenue",
               Ledger_Type2: "Realized (Gains)/Loss",
-              Ledger_Name: element1.Transaction_Type,
-              Credit: element1.Net,
+              Ledger_Name: createJEline.Transaction_Type,
+              Credit: createJEline.Net,
               hive: {
                 connect: {
-                  id: element1?.id,
+                  id: createJEline?.id,
                 },
               },
             },
@@ -132,6 +135,9 @@ async function main() {
         }
       }
     }
+
+    // if you want to see your script running on a larger data set
+    // console.log(element.Transaction_Type, " process completed");
   }
 }
 

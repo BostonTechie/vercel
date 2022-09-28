@@ -4,6 +4,9 @@ CREATE TYPE "DLedger" AS ENUM ('Asset', 'Liability', 'Equity', 'Revenue', 'Expen
 -- CreateEnum
 CREATE TYPE "CLedger" AS ENUM ('Asset', 'Liability', 'Equity', 'Revenue', 'Expense');
 
+-- CreateEnum
+CREATE TYPE "Sale" AS ENUM ('Buy', 'Sale');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -70,6 +73,8 @@ CREATE TABLE "Ledger" (
     "Cledger" "CLedger",
     "CLedger_SType" TEXT DEFAULT 'Deferred Revenue',
     "Realized" BOOLEAN DEFAULT false,
+    "Sale" "Sale",
+    "Notes" TEXT,
 
     CONSTRAINT "Ledger_pkey" PRIMARY KEY ("id")
 );

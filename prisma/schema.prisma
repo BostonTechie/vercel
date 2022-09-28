@@ -65,6 +65,8 @@ model Ledger {
   Cledger          CLedger?
   CLedger_SType    String?  @default("Deferred Revenue")
   Realized         Boolean? @default(false)
+  Sale             Sale?
+  Notes            String?
 }
 
 enum DLedger {
@@ -81,4 +83,9 @@ enum CLedger {
   Equity
   Revenue
   Expense
+}
+
+enum Sale {
+  Buy
+  Sale
 }
