@@ -77,8 +77,6 @@ async function main() {
         createJELineElement.Price_Symbol = storeStringPriceSymbol;
         createJELineElement.Gross_Proceed = storeGross;
         createJELineElement.Net = storeNet;
-
-        console.log("buy ", createJELineElement.Asset);
       }
 
       const createAllDebit = await prisma.accountingJE.create({
