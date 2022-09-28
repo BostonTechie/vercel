@@ -9,6 +9,7 @@ async function main() {
   const findAllJeCoding = await prisma.ledger.findMany({
     where: {},
     select: {
+      id: true,
       Transaction_Type: true,
       Dledger: true,
       DLedger_SType: true,
@@ -19,7 +20,10 @@ async function main() {
   });
 
   for (const element of findAllJeCoding) {
+    //if the transaction type returns a true i.e. realized needs to be calculate then run the following script
     if (element.Realized) {
+      //find all the transactions that match the  transaction type (see the where clause)note all the tranaction types must exist in the legder table before this script will run correctly
+
       const findTransactionsTypeForThisLoop = await prisma.hive.findMany({
         distinct: ["id"],
         select: {
@@ -43,6 +47,9 @@ async function main() {
       });
 
       for (const element1 of findTransactionsTypeForThisLoop) {
+        //pull the coding from the ledger table which should be equal to where the loop is in the array minus 1
+
+        i = element?.id - 1;
         const createAllDebit = await prisma.accountingJE.create({
           data: {
             Entity: element1?.Ownership,
@@ -60,7 +67,7 @@ async function main() {
             },
           },
         });
-
+        console.log(i);
         const createAllCredit = await prisma.accountingJE.create({
           data: {
             Entity: element1?.Ownership,
@@ -70,7 +77,7 @@ async function main() {
             Ledger_Type1: findAllJeCoding[i].Cledger,
             Ledger_Type2: findAllJeCoding[i].CLedger_SType,
             Ledger_Name: element1.Transaction_Type,
-            Credit: element1?.Gross_Proceed,
+            Credit: element1?.Cost_of_Basis,
             hive: {
               connect: {
                 id: element1?.id,
@@ -102,8 +109,6 @@ async function main() {
             },
           });
         }
-
-        i++;
       }
     }
   }
