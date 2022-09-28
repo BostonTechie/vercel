@@ -60,6 +60,7 @@ CREATE TABLE "AccountingJE" (
     "Debit" REAL DEFAULT 0,
     "Credit" REAL DEFAULT 0,
     "CryptoDBid" INTEGER NOT NULL,
+    "Duration" TEXT,
 
     CONSTRAINT "AccountingJE_pkey" PRIMARY KEY ("id")
 );

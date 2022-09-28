@@ -54,6 +54,7 @@ model AccountingJE {
   Debit        Float?    @default(0) @db.Real
   Credit       Float?    @default(0) @db.Real
   CryptoDBid   Int
+  Duration     String?
   hive         Hive      @relation(fields: [CryptoDBid], references: [id])
 }
 

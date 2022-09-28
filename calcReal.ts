@@ -27,8 +27,8 @@ async function main() {
 
     let debitLedgerType = elementJeCoding.Dledger;
     let creditLedgerType = elementJeCoding.Cledger;
-    let creditLedger = elementJeCoding.DLedger_SType;
-    let debitLedger = elementJeCoding.CLedger_SType;
+    let creditLedger = elementJeCoding.CLedger_SType;
+    let debitLedger = elementJeCoding.DLedger_SType;
 
     //if the transaction type returns a true for the realized field that indicates realized needs to be calculated so the script will run the following script
 
