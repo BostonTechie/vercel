@@ -56,23 +56,20 @@ async function main() {
       });
 
       for (const createJELineElement of findTransactionsTypeForThisLoop) {
+        let storeStringPrice = createJELineElement.Price_Symbol;
+        let storeStringAsset = createJELineElement?.Asset;
+
         if (elementJeCoding.Sale === "Sale") {
           /*   With hive inherantly some transaction types signify different things, an important example of this is "Sell" versus "Buy" transactions.  In the case of "Buy"  the token in the "Asset" column is the asset in question being purchase, which would be a Debit in accounting.  In "Sell: Transactions the "Asset" column denotes the asset being sold which would be a Credit.  The logic below handles that fundamental difference*/
 
-          let storeString = createJELineElement?.Price_Symbol;
-          let storeString2 = createJELineElement?.Asset;
-
-          createJELineElement.Asset = storeString;
-          createJELineElement.Price_Symbol = storeString2;
+          createJELineElement.Asset = storeStringPrice;
+          createJELineElement.Price_Symbol = storeStringAsset;
         }
         if (elementJeCoding.Sale === "Buy") {
           /*   With hive inherantly some transaction types signify different things, an important example of this is "Sell" versus "Buy" transactions.  In the case of "Buy"  the token in the "Asset" column is the asset in question being purchase, which would be a Debit in accounting.  In "Sell: Transactions the "Asset" column denotes the asset being sold which would be a Credit.  The logic below handles that fundamental difference*/
 
-          let storeString = createJELineElement?.Price_Symbol;
-          let storeString2 = createJELineElement?.Asset;
-
-          createJELineElement.Asset = storeString2;
-          createJELineElement.Price_Symbol = storeString;
+          createJELineElement.Asset = storeStringAsset;
+          createJELineElement.Price_Symbol = storeStringPrice;
         }
 
         const createAllDebit = await prisma.accountingJE.create({
@@ -138,9 +135,9 @@ async function main() {
             data: {
               Entity: createJELineElement?.Ownership,
               Wallet: createJELineElement?.Account,
-              Asset: createJELineElement?.Asset,
+              Asset: createJELineElement?.Price_Symbol,
               Proceed_Date: createJELineElement?.Proceed_Date,
-              Ledger_Type1: "Revenue",
+              Ledger_Type1: "OCI",
               Ledger_Type2: "Realized (Gains)/Loss",
               Ledger_Name: createJELineElement.Transaction_Type,
               Credit: createJELineElement.Net,
