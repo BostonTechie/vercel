@@ -31,7 +31,7 @@ model Hive {
   Price_Symbol     String?        @map("Price Symbol")
   Basis_Price      Float?         @map("Basis Price") @db.Real
   Cost_of_Basis    Float?         @map("Cost of Basis") @db.Real
-  Net              Float?         @db.Real
+  Net              Float?         @default(0) @db.Real
   Transaction_Type String?        @map("Transaction Type")
   Duration         String?
   Block            Int?
@@ -54,6 +54,7 @@ model AccountingJE {
   Debit        Float?    @default(0) @db.Real
   Credit       Float?    @default(0) @db.Real
   CryptoDBid   Int
+  Duration     String?
   hive         Hive      @relation(fields: [CryptoDBid], references: [id])
 }
 
@@ -65,6 +66,8 @@ model Ledger {
   Cledger          CLedger?
   CLedger_SType    String?  @default("Deferred Revenue")
   Realized         Boolean? @default(false)
+  Sale             Sale?
+  Notes            String?
 }
 
 enum DLedger {
@@ -81,4 +84,9 @@ enum CLedger {
   Equity
   Revenue
   Expense
+}
+
+enum Sale {
+  Buy
+  Sale
 }

@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function ledger() {
-  ////----this script creates a table of unique transaction type that can be used to to the coding for accounting
+  ////----this script creates a table of unique transaction type that can be used generate a ledger table from all the  distinct Transaction types that exist within a given table
 
   const resTransTypes = await prisma.hive.findMany({
     distinct: ["Transaction_Type"],

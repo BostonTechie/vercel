@@ -4,6 +4,9 @@ CREATE TYPE "DLedger" AS ENUM ('Asset', 'Liability', 'Equity', 'Revenue', 'Expen
 -- CreateEnum
 CREATE TYPE "CLedger" AS ENUM ('Asset', 'Liability', 'Equity', 'Revenue', 'Expense');
 
+-- CreateEnum
+CREATE TYPE "Sale" AS ENUM ('Buy', 'Sale');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -32,7 +35,7 @@ CREATE TABLE "Hive" (
     "Price Symbol" TEXT,
     "Basis Price" REAL,
     "Cost of Basis" REAL,
-    "Net" REAL,
+    "Net" REAL DEFAULT 0,
     "Transaction Type" TEXT,
     "Duration" TEXT,
     "Block" INTEGER,
@@ -57,6 +60,7 @@ CREATE TABLE "AccountingJE" (
     "Debit" REAL DEFAULT 0,
     "Credit" REAL DEFAULT 0,
     "CryptoDBid" INTEGER NOT NULL,
+    "Duration" TEXT,
 
     CONSTRAINT "AccountingJE_pkey" PRIMARY KEY ("id")
 );
@@ -70,6 +74,8 @@ CREATE TABLE "Ledger" (
     "Cledger" "CLedger",
     "CLedger_SType" TEXT DEFAULT 'Deferred Revenue',
     "Realized" BOOLEAN DEFAULT false,
+    "Sale" "Sale",
+    "Notes" TEXT,
 
     CONSTRAINT "Ledger_pkey" PRIMARY KEY ("id")
 );
