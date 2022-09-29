@@ -56,27 +56,27 @@ async function main() {
     for (const createJELineElement of findTransactionsTypeForThisLoop) {
       let storeStringPriceSymbol = createJELineElement.Price_Symbol;
       let storeStringAsset = createJELineElement.Asset;
-      let storeGross = createJELineElement.Gross_Proceed;
       let storeNet = createJELineElement.Net;
-
-      if (elementJeCoding.Sale === "Sale") {
-        /*   With hive inherantly some transaction types signify different things, an important example of this is "Sell" versus "Buy" transactions.  In the case of "Buy"  the token in the "Asset" column is the asset in question being purchase, which would be a Debit in accounting.  In "Sell: Transactions the "Asset" column denotes the asset being sold which would be a Credit.  The logic below handles that fundamental difference*/
-
-        createJELineElement.Asset = storeStringPriceSymbol;
-        createJELineElement.Price_Symbol = storeStringAsset;
-        if (storeNet != 0) {
-          createJELineElement.Gross_Proceed = storeNet;
-        }
-        createJELineElement.Net = storeGross;
-      }
+      let StoreRealizedSell = "";
 
       if (elementJeCoding.Sale === "Buy") {
         /*   With hive inherantly some transaction types signify different things, an important example of this is "Sell" versus "Buy" transactions.  In the case of "Buy"  the token in the "Asset" column is the asset in question being purchase, which would be a Debit in accounting.  In "Sell: Transactions the "Asset" column denotes the asset being sold which would be a Credit.  The logic below handles that fundamental difference*/
 
         createJELineElement.Asset = storeStringAsset;
         createJELineElement.Price_Symbol = storeStringPriceSymbol;
-        createJELineElement.Gross_Proceed = storeGross;
-        createJELineElement.Net = storeNet;
+        StoreRealizedSell = `${storeStringPriceSymbol}`;
+      }
+
+      if (elementJeCoding.Sale === "Sale") {
+        /*   With hive inherantly some transaction types signify different things, an important example of this is "Sell" versus "Buy" transactions.  In the case of "Buy"  the token in the "Asset" column is the asset in question being purchase, which would be a Debit in accounting.  In "Sell: Transactions the "Asset" column denotes the asset being sold which would be a Credit.  The logic below handles that fundamental difference*/
+
+        createJELineElement.Asset = storeStringPriceSymbol;
+        createJELineElement.Price_Symbol = storeStringAsset;
+        StoreRealizedSell = `${storeStringAsset}`;
+
+        // if (storeNet != 0) {
+        //   createJELineElement.Gross_Proceed = storeNet;
+        // }
       }
 
       const createAllDebit = await prisma.accountingJE.create({
@@ -124,7 +124,7 @@ async function main() {
           data: {
             Entity: createJELineElement?.Ownership,
             Wallet: createJELineElement?.Price_Symbol,
-            Asset: createJELineElement.Price_Symbol,
+            Asset: StoreRealizedSell,
             Proceed_Date: createJELineElement?.Proceed_Date,
             Ledger_Type1: "OCI",
             Ledger_Type2: "Realized (Gains)/Loss",
@@ -142,7 +142,7 @@ async function main() {
           data: {
             Entity: createJELineElement?.Ownership,
             Wallet: createJELineElement?.Account,
-            Asset: createJELineElement?.Asset,
+            Asset: StoreRealizedSell,
             Proceed_Date: createJELineElement?.Proceed_Date,
             Ledger_Type1: "OCI",
             Ledger_Type2: "Realized (Gains)/Loss",
