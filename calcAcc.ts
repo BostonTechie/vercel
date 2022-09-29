@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  //find all the coding needed for every transaction type from the ledger table to apply it to the Accounting JE table
+  //find all the coding needed for every transaction type from the ledger table to apply it to the Accounting JE table where realized Gain/Loss does not need to be calculated
 
   //might need a buy and a sell "type" on ledger table to better handle the in's vs outs for asset types
 
@@ -52,6 +52,7 @@ async function main() {
       where: {
         Transaction_Type: elementJeCoding?.Transaction_Type,
       },
+      take: 1,
     });
 
     for (const createJELineElement of findTransactionsTypeForThisLoop) {

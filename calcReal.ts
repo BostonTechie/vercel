@@ -3,9 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  //find all the coding needed for every transaction type from the ledger table to apply it to the Accounting JE table
-
-  //might need a buy and a sell "type" on ledger table to better handle the in's vs outs for asset types
+  //find all the coding needed for every transaction type where a realized gain / loss needs to be calculated from the ledger table to apply it to the Accounting JE table
 
   const findAllJeCoding = await prisma.ledger.findMany({
     where: { Realized: true },
@@ -47,10 +45,12 @@ async function main() {
         Cost_of_Basis: true,
         Net: true,
         Transaction_Type: true,
+        Duration: true,
       },
       where: {
         Transaction_Type: elementJeCoding?.Transaction_Type,
       },
+      take: 1,
     });
 
     for (const createJELineElement of findTransactionsTypeForThisLoop) {
@@ -89,6 +89,7 @@ async function main() {
           Ledger_Type2: debitLedger,
           Ledger_Name: createJELineElement.Transaction_Type,
           Debit: createJELineElement?.Gross_Proceed,
+          Duration: "N/A",
           hive: {
             connect: {
               id: createJELineElement?.id,
@@ -107,6 +108,7 @@ async function main() {
           Ledger_Type2: creditLedger,
           Ledger_Name: createJELineElement.Transaction_Type,
           Credit: createJELineElement?.Cost_of_Basis,
+          Duration: "N/A",
           hive: {
             connect: {
               id: createJELineElement?.id,
@@ -130,6 +132,7 @@ async function main() {
             Ledger_Type2: "Realized (Gains)/Loss",
             Ledger_Name: createJELineElement.Transaction_Type,
             Debit: createJELineElement.Net,
+            Duration: createJELineElement?.Duration,
             hive: {
               connect: {
                 id: createJELineElement?.id,
@@ -148,6 +151,7 @@ async function main() {
             Ledger_Type2: "Realized (Gains)/Loss",
             Ledger_Name: createJELineElement.Transaction_Type,
             Credit: createJELineElement.Net,
+            Duration: createJELineElement?.Duration,
             hive: {
               connect: {
                 id: createJELineElement?.id,
@@ -159,7 +163,7 @@ async function main() {
     }
 
     // if you want to see your script running on a larger data set
-    // console.log(elementJeCoding.Transaction_Type, " process completed");
+    console.log(elementJeCoding.Transaction_Type, " process completed");
   }
 }
 
