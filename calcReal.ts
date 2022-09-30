@@ -50,7 +50,8 @@ async function main() {
       where: {
         Transaction_Type: elementJeCoding?.Transaction_Type,
       },
-      take: 1,
+      // if you want to do a test run uncomment the below line
+      take: 3,
     });
 
     for (const createJELineElement of findTransactionsTypeForThisLoop) {
@@ -125,7 +126,7 @@ async function main() {
         const createAllDRealized = await prisma.accountingJE.create({
           data: {
             Entity: createJELineElement?.Ownership,
-            Wallet: createJELineElement?.Price_Symbol,
+            Wallet: createJELineElement?.Account,
             Asset: StoreRealizedSell,
             Proceed_Date: createJELineElement?.Proceed_Date,
             Ledger_Type1: "OCI",

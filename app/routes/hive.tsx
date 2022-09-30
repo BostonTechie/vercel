@@ -6,6 +6,7 @@ import { Layout } from "~/components/layout";
 import { Sidebar } from '~/components/sidebar'
 import { prisma } from '../utils/prisma.server'
 import { useLoaderData } from "@remix-run/react";
+import { Link } from "@remix-run/react"
 
 
 //@1hr 9min https://www.youtube.com/watch?v=vR33ZRJekHk
@@ -67,7 +68,7 @@ export default function Hive() {
                                                                         scope="col"
                                                                         className="sticky top-0 z-10 border-b border-gray-300 bg-gray-500 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8"
                                                                     >
-                                                                        dbid#
+                                                                        transID#
                                                                     </th>
                                                                     <th
                                                                         scope="col"
@@ -148,7 +149,7 @@ export default function Hive() {
                                                                                 'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
                                                                             )}
                                                                         >
-                                                                            {data.dbid}
+                                                                            {data.Transaction_ID}
                                                                         </td>
 
                                                                         <td
