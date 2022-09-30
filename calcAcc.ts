@@ -48,6 +48,7 @@ async function main() {
         Cost_of_Basis: true,
         Net: true,
         Transaction_Type: true,
+        Duration: true,
       },
       where: {
         Transaction_Type: elementJeCoding?.Transaction_Type,
@@ -87,7 +88,7 @@ async function main() {
           Ledger_Type2: debitLedger,
           Ledger_Name: createJELineElement.Transaction_Type,
           Debit: createJELineElement?.Gross_Proceed,
-          Duration: "N/A",
+          Duration: createJELineElement?.Duration,
           hive: {
             connect: {
               id: createJELineElement?.id,
@@ -106,7 +107,7 @@ async function main() {
           Ledger_Type2: creditLedger,
           Ledger_Name: createJELineElement.Transaction_Type,
           Credit: createJELineElement?.Gross_Proceed,
-          Duration: "N/A",
+          Duration: createJELineElement?.Duration,
           hive: {
             connect: {
               id: createJELineElement?.id,

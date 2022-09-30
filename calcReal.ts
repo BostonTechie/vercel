@@ -90,7 +90,7 @@ async function main() {
           Ledger_Type2: debitLedger,
           Ledger_Name: createJELineElement.Transaction_Type,
           Debit: createJELineElement?.Gross_Proceed,
-          Duration: "N/A",
+          Duration: createJELineElement?.Duration,
           hive: {
             connect: {
               id: createJELineElement?.id,
@@ -109,7 +109,7 @@ async function main() {
           Ledger_Type2: creditLedger,
           Ledger_Name: createJELineElement.Transaction_Type,
           Credit: createJELineElement?.Cost_of_Basis,
-          Duration: "N/A",
+          Duration: createJELineElement?.Duration,
           hive: {
             connect: {
               id: createJELineElement?.id,
