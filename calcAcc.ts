@@ -52,7 +52,9 @@ async function main() {
       where: {
         Transaction_Type: elementJeCoding?.Transaction_Type,
       },
-      take: 1,
+
+      // if you want to do a test run uncomment the below line
+      take: 3,
     });
 
     for (const createJELineElement of findTransactionsTypeForThisLoop) {
@@ -85,6 +87,7 @@ async function main() {
           Ledger_Type2: debitLedger,
           Ledger_Name: createJELineElement.Transaction_Type,
           Debit: createJELineElement?.Gross_Proceed,
+          Duration: "N/A",
           hive: {
             connect: {
               id: createJELineElement?.id,
@@ -103,6 +106,7 @@ async function main() {
           Ledger_Type2: creditLedger,
           Ledger_Name: createJELineElement.Transaction_Type,
           Credit: createJELineElement?.Gross_Proceed,
+          Duration: "N/A",
           hive: {
             connect: {
               id: createJELineElement?.id,
