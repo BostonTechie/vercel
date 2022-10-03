@@ -74,6 +74,7 @@ CREATE TABLE "Ledger" (
     "Cledger" "CLedger",
     "CLedger_SType" TEXT DEFAULT 'Deferred Revenue',
     "Realized" BOOLEAN DEFAULT false,
+    "Realized_Type" TEXT,
     "Sale" "Sale",
     "Notes" TEXT,
 

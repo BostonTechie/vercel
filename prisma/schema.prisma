@@ -66,6 +66,7 @@ model Ledger {
   Cledger          CLedger?
   CLedger_SType    String?  @default("Deferred Revenue")
   Realized         Boolean? @default(false)
+  Realized_Type    String?
   Sale             Sale?
   Notes            String?
 }

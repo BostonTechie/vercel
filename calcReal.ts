@@ -15,6 +15,7 @@ async function main() {
       Cledger: true,
       CLedger_SType: true,
       Sale: true,
+      Realized_Type: true,
     },
   });
 
@@ -26,6 +27,7 @@ async function main() {
     let creditLedgerType = elementJeCoding.Cledger;
     let creditLedger = elementJeCoding.CLedger_SType;
     let debitLedger = elementJeCoding.DLedger_SType;
+    let realType = elementJeCoding.Realized_Type;
 
     // toggled realized = true on the find many where clause the beloew calculates that script
 
@@ -129,8 +131,8 @@ async function main() {
             Wallet: createJELineElement?.Account,
             Asset: StoreRealizedSell,
             Proceed_Date: createJELineElement?.Proceed_Date,
-            Ledger_Type1: "OCI",
-            Ledger_Type2: "Realized (Gains)/Loss",
+            Ledger_Type1: "Revenue",
+            Ledger_Type2: realType,
             Ledger_Name: createJELineElement.Transaction_Type,
             Debit: createJELineElement.Net,
             Duration: createJELineElement?.Duration,
@@ -148,8 +150,8 @@ async function main() {
             Wallet: createJELineElement?.Account,
             Asset: StoreRealizedSell,
             Proceed_Date: createJELineElement?.Proceed_Date,
-            Ledger_Type1: "OCI",
-            Ledger_Type2: "Realized (Gains)/Loss",
+            Ledger_Type1: "Revenue",
+            Ledger_Type2: realType,
             Ledger_Name: createJELineElement.Transaction_Type,
             Credit: createJELineElement.Net,
             Duration: createJELineElement?.Duration,
