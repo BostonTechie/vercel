@@ -71,6 +71,39 @@ model Ledger {
   Notes            String?
 }
 
+model Output {
+  id               Int       @id @unique @default(autoincrement())
+  Report_Type      String?   @map("Report Type")
+  Asset_Type       String?   @map("Asset Type")
+  Asset            String?
+  Account          String?
+  Counterparty     String?   @default("")
+  Quantity         Float?    @db.Real
+  Basis_Date       DateTime? @map("Basis Date")
+  Proceed_Date     DateTime? @map("Proceed Date")
+  Token_Price      Float?    @map("Token Price") @db.Real
+  Gross_Proceed    Float?    @map("Gross Proceed") @db.Real
+  Total_Price      Float?    @map("Total Price") @db.Real
+  Price_Symbol     String?   @map("Price Symbol")
+  Basis_Price      Float?    @map("Basis Price") @db.Real
+  Cost_of_Basis    Float?    @map("Cost of Basis") @db.Real
+  Net              Float?    @default(0) @db.Real
+  Transaction_Type String?   @map("Transaction Type")
+  Duration         String?
+  Block            Int?
+  Transaction_ID   String?   @map("Transaction ID")
+  Note             String?
+  Ownership        String?   @map("Ownership Type")
+  Index            Int?
+}
+
+model Counterparty {
+  id          Int      @id @unique @default(autoincrement())
+  cp_account  String?
+  entity_type String?
+  action      Boolean? @default(true)
+}
+
 enum DLedger {
   Asset
   Liability
