@@ -9,7 +9,8 @@
     "dev:css": "tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css -w",
     "calcreal": "nodemon calcReal.ts",
     "calcacc": "nodemon calcAcc.ts",
-    "ledger": "nodemon ledger.ts"
+    "ledger": "nodemon ledger.ts",
+    "calcall": "concurrently \"npm run calcacc\" \"npm run calcreal\""
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",

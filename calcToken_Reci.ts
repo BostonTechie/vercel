@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function tribe_tokens() {
+async function Token_recieved_tribe_tokens() {
   //find all the coding needed for every transaction type from the ledger table to apply it to the Accounting JE table where realized Gain/Loss does not need to be calculated
 
   //might need a buy and a sell "type" on ledger table to better handle the in's vs outs for asset types
@@ -36,7 +36,7 @@ async function tribe_tokens() {
       distinct: ["id"],
       select: {
         id: true,
-        Ownership: true,
+        Account_Ownership: true,
         Asset_Type: true,
         Asset: true,
         Account: true,
@@ -168,7 +168,7 @@ async function tribe_tokens() {
 
       const createAllDebit = await prisma.accountingJE.create({
         data: {
-          Entity: createJELineElement?.Ownership,
+          Entity: createJELineElement?.Account_Ownership,
           Wallet: createJELineElement?.Account,
           Asset: createJELineElement.Asset,
           Proceed_Date: createJELineElement?.Proceed_Date,
@@ -187,7 +187,7 @@ async function tribe_tokens() {
 
       const createAllCredit = await prisma.accountingJE.create({
         data: {
-          Entity: createJELineElement?.Ownership,
+          Entity: createJELineElement?.Account_Ownership,
           Wallet: createJELineElement?.Account,
           Asset: createJELineElement.Price_Symbol,
           Proceed_Date: createJELineElement?.Proceed_Date,
@@ -210,9 +210,9 @@ async function tribe_tokens() {
   }
 }
 
-////----end of tribe_tokens function---------------------------------------
+////----end of Token_recieved_tribe_tokens function---------------------------------------
 
-async function notIN_tribe_tokens() {
+async function Token_recieved_NotTribe_tokens() {
   //find all the coding needed for every transaction type where a realized gain / loss needs to be calculated from the ledger table to apply it to the Accounting JE table
 
   const findAllJeCoding = await prisma.ledger.findMany({
@@ -245,7 +245,7 @@ async function notIN_tribe_tokens() {
       distinct: ["id"],
       select: {
         id: true,
-        Ownership: true,
+        Account_Ownership: true,
         Asset_Type: true,
         Asset: true,
         Account: true,
@@ -376,7 +376,7 @@ async function notIN_tribe_tokens() {
 
       const createAllDebit = await prisma.accountingJE.create({
         data: {
-          Entity: createJELineElement?.Ownership,
+          Entity: createJELineElement?.Account_Ownership,
           Wallet: createJELineElement?.Account,
           Asset: createJELineElement.Asset,
           Proceed_Date: createJELineElement?.Proceed_Date,
@@ -395,7 +395,7 @@ async function notIN_tribe_tokens() {
 
       const createAllCredit = await prisma.accountingJE.create({
         data: {
-          Entity: createJELineElement?.Ownership,
+          Entity: createJELineElement?.Account_Ownership,
           Wallet: createJELineElement?.Account,
           Asset: createJELineElement.Price_Symbol,
           Proceed_Date: createJELineElement?.Proceed_Date,
@@ -418,9 +418,9 @@ async function notIN_tribe_tokens() {
   }
 }
 
-////----end of tribe_tokens function---------------------------------------
+////----end of Token_recieved_tribe_tokens function---------------------------------------
 
-notIN_tribe_tokens()
+Token_recieved_NotTribe_tokens()
   .catch((e) => {
     console.error(e);
     process.exit(1);
@@ -429,7 +429,7 @@ notIN_tribe_tokens()
     prisma.$disconnect;
   });
 
-tribe_tokens()
+Token_recieved_tribe_tokens()
   .catch((e) => {
     console.error(e);
     process.exit(1);

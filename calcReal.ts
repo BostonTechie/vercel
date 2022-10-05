@@ -35,7 +35,7 @@ async function main() {
       distinct: ["id"],
       select: {
         id: true,
-        Ownership: true,
+        Account_Ownership: true,
         Asset_Type: true,
         Asset: true,
         Account: true,
@@ -84,7 +84,7 @@ async function main() {
 
       const createAllDebit = await prisma.accountingJE.create({
         data: {
-          Entity: createJELineElement?.Ownership,
+          Entity: createJELineElement?.Account_Ownership,
           Wallet: createJELineElement?.Account,
           Asset: createJELineElement.Asset,
           Proceed_Date: createJELineElement?.Proceed_Date,
@@ -103,7 +103,7 @@ async function main() {
 
       const createAllCredit = await prisma.accountingJE.create({
         data: {
-          Entity: createJELineElement?.Ownership,
+          Entity: createJELineElement?.Account_Ownership,
           Wallet: createJELineElement?.Account,
           Asset: createJELineElement.Price_Symbol,
           Proceed_Date: createJELineElement?.Proceed_Date,
@@ -127,7 +127,7 @@ async function main() {
 
         const createAllDRealized = await prisma.accountingJE.create({
           data: {
-            Entity: createJELineElement?.Ownership,
+            Entity: createJELineElement?.Account_Ownership,
             Wallet: createJELineElement?.Account,
             Asset: StoreRealizedSell,
             Proceed_Date: createJELineElement?.Proceed_Date,
@@ -146,7 +146,7 @@ async function main() {
       } else {
         const createAllCRealized = await prisma.accountingJE.create({
           data: {
-            Entity: createJELineElement?.Ownership,
+            Entity: createJELineElement?.Account_Ownership,
             Wallet: createJELineElement?.Account,
             Asset: StoreRealizedSell,
             Proceed_Date: createJELineElement?.Proceed_Date,
