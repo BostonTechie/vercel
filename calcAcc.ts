@@ -8,7 +8,7 @@ async function main() {
   //might need a buy and a sell "type" on ledger table to better handle the in's vs outs for asset types
 
   const findAllJeCoding = await prisma.ledger.findMany({
-    where: { Realized: false },
+    where: { Realized: false, NOT: { Transaction_Type: "TOKENS_RECEIVED" } },
     select: {
       id: true,
       Transaction_Type: true,

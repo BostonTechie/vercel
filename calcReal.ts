@@ -6,7 +6,7 @@ async function main() {
   //find all the coding needed for every transaction type where a realized gain / loss needs to be calculated from the ledger table to apply it to the Accounting JE table
 
   const findAllJeCoding = await prisma.ledger.findMany({
-    where: { Realized: true, Transaction_Type: { not: "TRANSFER" } },
+    where: { Realized: true, NOT: { Transaction_Type: "TRANSFER" } },
     select: {
       id: true,
       Transaction_Type: true,
@@ -51,6 +51,9 @@ async function main() {
       },
       where: {
         Transaction_Type: elementJeCoding?.Transaction_Type,
+        accountingJE: {
+          none: {},
+        },
       },
       // if you want to do a test run uncomment the below line
       take: 3,
@@ -76,10 +79,6 @@ async function main() {
         createJELineElement.Asset = storeStringPriceSymbol;
         createJELineElement.Price_Symbol = storeStringAsset;
         StoreRealizedSell = `${storeStringAsset}`;
-
-        // if (storeNet != 0) {
-        //   createJELineElement.Gross_Proceed = storeNet;
-        // }
       }
 
       const createAllDebit = await prisma.accountingJE.create({
