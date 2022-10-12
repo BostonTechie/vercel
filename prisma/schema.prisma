@@ -46,6 +46,7 @@ model AccountingJE {
   id           Int       @id @unique @default(autoincrement())
   Entity       String?
   Wallet       String?
+  Counterparty String?
   Asset        String?
   Proceed_Date DateTime?
   Ledger_Type1 String?
